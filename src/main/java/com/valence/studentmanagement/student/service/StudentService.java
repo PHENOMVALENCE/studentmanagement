@@ -8,12 +8,12 @@
  *  Created on Aug 07, 2025
  */
 
-package com.valence.studentmanagement.service;
+package com.valence.studentmanagement.student.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.valence.studentmanagement.model.Student;
+import com.valence.studentmanagement.student.model.Student;
 
 public interface StudentService {
 	List<Student> list();

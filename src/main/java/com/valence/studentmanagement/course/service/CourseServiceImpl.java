@@ -5,44 +5,34 @@
  *  Organization      : Stanbic Bank Tanzania LTD
  *  Organization Unit : Software Engineering
  *  Copyright (C) 2025
- *  Created on Aug 07, 2025
+ *  Created on Aug 11, 2025
  */
 
-package com.valence.studentmanagement.service;
+package com.valence.studentmanagement.course.service;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.valence.studentmanagement.model.Student;
-import com.valence.studentmanagement.repository.StudentRepository;
+import com.valence.studentmanagement.course.model.Course;
+import com.valence.studentmanagement.course.repository.CourseRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
+@Slf4j
 @RequiredArgsConstructor
-public class StudentServiceImpl implements StudentService{
-	private final StudentRepository studentRepository;
-	
-	
-	@Override
-	public List<Student> list() {
-		try {
-			return studentRepository.findAll();
-		}catch(Exception ex) {
-			log.error(ex.getMessage(),ex);
-			return new ArrayList<>();
-		}
-	}
+
+public class CourseServiceImpl  implements CourseService{
+	private final CourseRepository courseservice;
 
 	@Override
-	public Optional<Student> select(String username) {
+	public Optional<Course> list() {
 		try {
-			return studentRepository.findByUsername(username);
+			return courseservice.findById(null);
 		}catch(Exception ex) {
 			log.error(ex.getMessage(),ex);
 			return Optional.empty();
@@ -50,9 +40,19 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public boolean create(Student entity) {
+	public Optional<Course> select(Long id) {
 		try {
-			studentRepository.save(entity);
+			return courseservice.findById(id);
+		}catch(Exception ex) {
+			log.error(ex.getMessage(),ex);
+			return Optional.empty();
+		}
+	}
+
+	@Override
+	public boolean create(Course entity) {
+		try {
+			 courseservice.save(entity);
 			return true;
 		}catch(Exception ex) {
 			log.error(ex.getMessage(),ex);
@@ -61,9 +61,9 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public boolean update(Student entity) {
+	public boolean update(Course entity) {
 		try {
-			studentRepository.save(entity);
+			 courseservice.save(entity);
 			return true;
 		}catch(Exception ex) {
 			log.error(ex.getMessage(),ex);
@@ -72,14 +72,18 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public boolean delete(String username) {
+	@Transactional
+	public boolean delete(Long id) {
 		try {
-			studentRepository.deleteByUsername(username);
+			 courseservice.deleteById(id);
 			return true;
 		}catch(Exception ex) {
 			log.error(ex.getMessage(),ex);
 			return false;
 		}
 	}
+	}
 
-}
+
+
+

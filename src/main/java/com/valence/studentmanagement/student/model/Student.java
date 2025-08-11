@@ -8,7 +8,7 @@
  *  Created on Aug 07, 2025
  */
 
-package com.valence.studentmanagement.model;
+package com.valence.studentmanagement.student.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+
 
 @Entity
 @Table(name="student")
