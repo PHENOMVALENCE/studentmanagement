@@ -1,1 +1,1 @@
-Student Management System using Java
+Student Management System using Java Springboot
