@@ -31,6 +31,12 @@ public class SampleController {
 		return "list";
 	}
 	
+	@GetMapping("/message")
+	public String message(Model model) {
+		 
+		return "list";
+	}
+	
 	@PostMapping("/sample")
 	public String post(Model model,@ModelAttribute("studentInput") StudentInput studentInput,
 			RedirectAttributes ra) {

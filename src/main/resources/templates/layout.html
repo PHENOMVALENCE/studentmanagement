@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org>
+<head>
+	<link href="css/styles.css" rel="stylesheet" />
+	
+</head>
+<body>
+<p th:text="#{app.name}"></p>
+<p th:text="#{message}"></p>
+<span th:text="#{app.name}" ></span>
+<span th:text="#{message}" ></span>
+	<h1>Student Management System (SMS)</h1>
+	<ul class="nav">
+		<li><a href="/student-list">Student data management</a></li>
+		<li><a href="/parent-list">Parent data management</a></li>
+		<li><a href="/course-list">Course management</a></li>
+	</ul>
+	<div class="content" id="content"> 
+		<th:block th:replace="${content}"></th:block>
+	</div>
+	<footer>@2025 Student Management System</footer>
+</body>
+</html>

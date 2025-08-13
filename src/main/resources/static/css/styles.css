@@ -1,0 +1,16 @@
+body {
+	background-color: blue;
+	color: white;
+	font-weight:400;
+}
+
+.table {
+	background-color: black;
+	
+}
+
+ul.nav li{
+	text-decoration: none;
+	display:inline;
+	padding-right:50px;
+}
