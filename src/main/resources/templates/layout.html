@@ -1,23 +1,130 @@
+
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org>
-<head>
-	<link href="css/styles.css" rel="stylesheet" />
-	
-</head>
-<body>
-<p th:text="#{app.name}"></p>
-<p th:text="#{message}"></p>
-<span th:text="#{app.name}" ></span>
-<span th:text="#{message}" ></span>
-	<h1>Student Management System (SMS)</h1>
-	<ul class="nav">
-		<li><a href="/student-list">Student data management</a></li>
-		<li><a href="/parent-list">Parent data management</a></li>
-		<li><a href="/course-list">Course management</a></li>
-	</ul>
-	<div class="content" id="content"> 
-		<th:block th:replace="${content}"></th:block>
-	</div>
-	<footer>@2025 Student Management System</footer>
-</body>
+<html 
+xlmns:th
+>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title}" > </title>
+    <link href="css/styless.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  </head>
+  <body class="body">
+  <section id="sidebar">
+<div class="white-label">
+</div>
+<div id="sidebar-nav">
+<ul>
+<li class="active"><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+<li><a href="#"><i class="fa fa-desktop"></i> My Website</a></li>
+<li><a href="#"><i class="fa fa-usd"></i> Ecommerce</a></li>
+<li><a href="#"><i class="fa fa-pencil-square-o"></i> My Blog</a></li>
+<li><a href="#"><i class="fa fa-sitemap"></i> SEO Tools</a></li>
+<li><a href="#"><i class="fa fa-line-chart"></i> Reporting</a></li>
+<li><a href="#"><i class="fa fa-comments-o"></i>Social Marketing</a></li>
+<li><a href="#"><i class="fa fa-map-marker"></i> Get Traffic</a></li>
+<li><a href="#"><i class="fa fa-users"></i> Employees</a></li>
+<li><a href="#"><i class="fa fa-calendar-o"></i> Reservations</a></li>
+<li><a href="#"><i class="fa fa-calendar"></i> Calendar</a></li>
+</ul>
+</div>
+</section>
+
+<section id="content">
+    <div id="header">
+        <div class="header-nav">
+            <div class="menu-button"><!--<i class="fa fa-navicon"></i>--></div>
+            <div class="nav">
+                <ul>
+                    <li class="nav-settings">
+                        <div class="font-icon"><i class="fa fa-tasks"></i></div>
+                    </li>
+                    <li class="nav-mail">
+                        <div class="font-icon">
+                            <i class="fa fa-envelope-o"></i>
+                        </div>
+                    </li>
+                    <li class="nav-calendar">
+                        <div class="font-icon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                    </li>
+                    <li class="nav-chat">
+                        <div class="font-icon">
+                            <i class="fa fa-comments-o"></i>
+                        </div>
+                    </li>
+                    <li class="nav-profile">
+                        <div class="nav-profile-image">
+                            <img
+                                src="https://skynet.marketecture.com/user_avatars/258800/Hayley-Helsten.jpg"
+                                
+                                alt="profile image"
+                            />
+                            <div class="nav-profile-name">
+                                Web Dev<i class="fa fa-caret-down"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="content-header">
+            <h1>Dashboard</h1>
+            <p>SMS</p>
+        </div>
+        <div class="widget-box sample-widget">
+            <div class="widget-header">
+                <h2>Widget Header</h2>
+                <i class="fa fa-cog"></i>
+            </div>
+            <div class="widget-content">
+                <img
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/87118/sample-data-1.png"
+                />
+            </div>
+        </div>
+        <div class="widget-box sample-widget">
+            <div class="widget-header">
+                <h2>Widget Header</h2>
+                <i class="fa fa-cog"></i>
+            </div>
+            <div class="widget-content">
+                <img
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/87118/sample-data-1.png"
+                />
+            </div>
+        </div>
+        <div class="widget-box sample-widget">
+            <div class="widget-header">
+                <h2>Widget Header</h2>
+                <i class="fa fa-cog"></i>
+            </div>
+            <div class="widget-content">
+                <img
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/87118/sample-data-1.png"
+                />
+            </div>
+        </div>
+        <div class="widget-box sample-widget">
+            <div class="widget-header">
+                <h2>Widget Header</h2>
+                <i class="fa fa-cog"></i>
+            </div>
+            <div class="widget-content">
+                <img
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/87118/sample-data-1.png"
+                />
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+  </body>
 </html>

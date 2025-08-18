@@ -18,7 +18,7 @@ import com.valence.studentmanagement.student.model.Student;
 public interface StudentService {
 	List<Student> list();
 	Optional<Student> select(String username);
-	boolean create(Student entity);
 	boolean update(Student entity);
 	boolean delete(String username);
+	boolean create(Student entity);
 }

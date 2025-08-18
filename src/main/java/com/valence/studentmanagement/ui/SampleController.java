@@ -23,12 +23,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class SampleController {
-	@GetMapping("/sample")
+	@GetMapping("/list")
 	public String index(Model model) {
-		 model.addAttribute("title", "Sample Home Page Title");
-		 model.addAttribute("name", "Samoebody");
+		 model.addAttribute("title", "Student Management System Home Page ");
+		 model.addAttribute("name", "Valence Mwigani");
 		 model.addAttribute("studentInput", new StudentInput());
-		return "list";
+		return "test";
 	}
 	
 	

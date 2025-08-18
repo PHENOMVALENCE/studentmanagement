@@ -1,18 +1,658 @@
 <!DOCTYPE html>
-<html>
-   <head>
-      <meta charset = "ISO-8859-1" />
-      <link href = "css/styles.css" rel = "stylesheet"/>
-      <title>UPDATE FORM</title>
-   </head>
-   <body>
-      <h1>Update your details</h1>
-      <form action="" method="POST">
-  <label for="uname">Username:</label><br>
-  <input type="text" id="uname" name="uname"><br><br>
-  <label for="email"> Email:</label><br>
-  <input type="email" id="email" name="email">
-  <button type="SUBMIT">UPDATE</button>
-</form>
-   </body>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Top Navbar -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 fixed w-full top-0 z-30">
+        <div class="px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-xl font-semibold text-gray-800">Student Management System</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 text-gray-600 hover:text-gray-800">
+                            <i class="fas fa-user-circle text-xl"></i>
+                            <span class="text-sm font-medium">Admin User</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                    </div>
+                    <button class="text-gray-600 hover:text-gray-800">
+                        <i class="fas fa-bell text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="bg-white shadow-sm border-r border-gray-200 fixed left-0 top-16 h-full w-64 z-20">
+        <nav class="p-4">
+            <ul class="space-y-2">
+                <!-- Dashboard -->
+                <li>
+                    <a href="#dashboard" class="flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-tachometer-alt text-blue-600"></i>
+                        <span class="font-medium">Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- Student Management -->
+                <li>
+                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mt-6 mb-2 px-3">
+                        Student Management
+                    </div>
+                </li>
+                <li>
+                    <a href="#students-list" onclick="showPage('students-list')" class="flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-users text-green-600"></i>
+                        <span class="font-medium">All Students</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#students-add" onclick="showPage('students-add')" class="flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-user-plus text-green-600"></i>
+                        <span class="font-medium">Add Student</span>
+                    </a>
+                </li>
+
+                <!-- Parent Management -->
+                <li>
+                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mt-6 mb-2 px-3">
+                        Parent Management
+                    </div>
+                </li>
+                <li>
+                    <a href="#parents-list" onclick="showPage('parents-list')" class="flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-user-friends text-purple-600"></i>
+                        <span class="font-medium">All Parents</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#parents-add" onclick="showPage('parents-add')" class="flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-user-plus text-purple-600"></i>
+                        <span class="font-medium">Add Parent</span>
+                    </a>
+                </li>
+
+                <!-- Course Management -->
+                <li>
+                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mt-6 mb-2 px-3">
+                        Course Management
+                    </div>
+                </li>
+                <li>
+                    <a href="#courses-list" onclick="showPage('courses-list')" class="flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-book text-orange-600"></i>
+                        <span class="font-medium">All Courses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#courses-add" onclick="showPage('courses-add')" class="flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-plus-circle text-orange-600"></i>
+                        <span class="font-medium">Add Course</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="ml-64 mt-16 p-6">
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page-content">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Dashboard</h2>
+                <p class="text-gray-600">Welcome to the Student Management System</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Total Students</p>
+                            <p class="text-3xl font-bold text-green-600">1,234</p>
+                        </div>
+                        <i class="fas fa-users text-green-600 text-2xl"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Total Parents</p>
+                            <p class="text-3xl font-bold text-purple-600">856</p>
+                        </div>
+                        <i class="fas fa-user-friends text-purple-600 text-2xl"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Total Courses</p>
+                            <p class="text-3xl font-bold text-orange-600">42</p>
+                        </div>
+                        <i class="fas fa-book text-orange-600 text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Students List Page -->
+        <div id="students-list" class="page-content hidden">
+            <div class="mb-6 flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">All Students</h2>
+                    <p class="text-gray-600">Manage and view all registered students</p>
+                </div>
+                <button onclick="showPage('students-add')" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                    <i class="fas fa-plus mr-2"></i>Add Student
+                </button>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-4">
+                            <input type="text" placeholder="Search students..." class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <select class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <option>All Classes</option>
+                                <option>Class 1</option>
+                                <option>Class 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Class</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Parent</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="h-10 w-10 bg-green-100 rounded-full flex items-center justify-center">
+                                                <span class="text-green-600 font-medium">JD</span>
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">John Doe</div>
+                                                <div class="text-sm text-gray-500">john.doe@email.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">STU001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Grade 10A</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Jane Doe</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                        <button onclick="showPage('students-view')" class="text-blue-600 hover:text-blue-900">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button onclick="showPage('students-edit')" class="text-green-600 hover:text-green-900">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-900">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Student Page -->
+        <div id="students-add" class="page-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Add New Student</h2>
+                <p class="text-gray-600">Enter student information to register a new student</p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                            <input type="tel" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                            <input type="date" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Class</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <option>Select Class</option>
+                                <option>Grade 9A</option>
+                                <option>Grade 10A</option>
+                                <option>Grade 11A</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                        <textarea rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                    </div>
+                    
+                    <div class="flex items-center justify-end space-x-4">
+                        <button type="button" onclick="showPage('students-list')" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                            Add Student
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Student Page -->
+        <div id="students-edit" class="page-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Edit Student</h2>
+                <p class="text-gray-600">Update student information</p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                            <input type="text" value="John" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                            <input type="text" value="Doe" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" value="john.doe@email.com" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                            <input type="tel" value="+1234567890" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                            <input type="date" value="2005-06-15" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Class</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <option>Grade 9A</option>
+                                <option selected>Grade 10A</option>
+                                <option>Grade 11A</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                        <textarea rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">123 Main Street, City, State 12345</textarea>
+                    </div>
+                    
+                    <div class="flex items-center justify-end space-x-4">
+                        <button type="button" onclick="showPage('students-list')" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                            Update Student
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- View Student Page -->
+        <div id="students-view" class="page-content hidden">
+            <div class="mb-6 flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Student Details</h2>
+                    <p class="text-gray-600">View complete student information</p>
+                </div>
+                <div class="space-x-2">
+                    <button onclick="showPage('students-edit')" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                        <i class="fas fa-edit mr-2"></i>Edit
+                    </button>
+                    <button onclick="showPage('students-list')" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                        Back to List
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Personal Information</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <span class="text-sm font-medium text-gray-500">Full Name:</span>
+                                <p class="text-gray-800">John Doe</p>
+                            </div>
+                            <div>
+                                <span class="text-sm font-medium text-gray-500">Student ID:</span>
+                                <p class="text-gray-800">STU001</p>
+                            </div>
+                            <div>
+                                <span class="text-sm font-medium text-gray-500">Email:</span>
+                                <p class="text-gray-800">john.doe@email.com</p>
+                            </div>
+                            <div>
+                                <span class="text-sm font-medium text-gray-500">Phone:</span>
+                                <p class="text-gray-800">+1234567890</p>
+                            </div>
+                            <div>
+                                <span class="text-sm font-medium text-gray-500">Date of Birth:</span>
+                                <p class="text-gray-800">June 15, 2005</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Academic Information</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <span class="text-sm font-medium text-gray-500">Class:</span>
+                                <p class="text-gray-800">Grade 10A</p>
+                            </div>
+                            <div>
+                                <span class="text-sm font-medium text-gray-500">Enrollment Date:</span>
+                                <p class="text-gray-800">September 1, 2023</p>
+                            </div>
+                            <div>
+                                <span class="text-sm font-medium text-gray-500">Status:</span>
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                            </div>
+                            <div>
+                                <span class="text-sm font-medium text-gray-500">Parent/Guardian:</span>
+                                <p class="text-gray-800">Jane Doe</p>
+                            </div>
+                            <div>
+                                <span class="text-sm font-medium text-gray-500">Address:</span>
+                                <p class="text-gray-800">123 Main Street, City, State 12345</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parents List Page -->
+        <div id="parents-list" class="page-content hidden">
+            <div class="mb-6 flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">All Parents</h2>
+                    <p class="text-gray-600">Manage parent and guardian information</p>
+                </div>
+                <button onclick="showPage('parents-add')" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                    <i class="fas fa-plus mr-2"></i>Add Parent
+                </button>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Parent</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Children</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="h-10 w-10 bg-purple-100 rounded-full flex items-center justify-center">
+                                            <span class="text-purple-600 font-medium">JD</span>
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">Jane Doe</div>
+                                            <div class="text-sm text-gray-500">Mother</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">John Doe (Grade 10A)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">jane.doe@email.com</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-900">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-900">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-900">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Parent Page -->
+        <div id="parents-add" class="page-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Add New Parent</h2>
+                <p class="text-gray-600">Register a new parent or guardian</p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                            <input type="tel" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Relationship</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option>Select Relationship</option>
+                                <option>Father</option>
+                                <option>Mother</option>
+                                <option>Guardian</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Occupation</label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-end space-x-4">
+                        <button type="button" onclick="showPage('parents-list')" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                            Add Parent
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Courses List Page -->
+        <div id="courses-list" class="page-content hidden">
+            <div class="mb-6 flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">All Courses</h2>
+                    <p class="text-gray-600">Manage course curriculum and schedules</p>
+                </div>
+                <button onclick="showPage('courses-add')" class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors">
+                    <i class="fas fa-plus mr-2"></i>Add Course
+                </button>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Code</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teacher</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Students</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">Mathematics</div>
+                                        <div class="text-sm text-gray-500">Advanced Algebra & Geometry</div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">MATH101</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dr. Smith</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">28</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-900">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-900">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-900">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Course Page -->
+        <div id="courses-add" class="page-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Add New Course</h2>
+                <p class="text-gray-600">Create a new course in the curriculum</p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Course Name</label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Course Code</label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Teacher</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                <option>Select Teacher</option>
+                                <option>Dr. Smith</option>
+                                <option>Prof. Johnson</option>
+                                <option>Ms. Williams</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Credits</label>
+                            <input type="number" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Duration (Hours)</label>
+                            <input type="number" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Max Students</label>
+                            <input type="number" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Course Description</label>
+                        <textarea rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
+                    </div>
+                    
+                    <div class="flex items-center justify-end space-x-4">
+                        <button type="button" onclick="showPage('courses-list')" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
+                            Add Course
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => page.classList.add('hidden'));
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+            
+            // Update active sidebar link
+            const links = document.querySelectorAll('aside a');
+            links.forEach(link => link.classList.remove('bg-gray-100'));
+            
+            const activeLink = document.querySelector(`a[href="#${pageId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('bg-gray-100');
+            }
+        }
+        
+        // Show dashboard by default
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('dashboard');
+        });
+    </script>
+</body>
 </html>
