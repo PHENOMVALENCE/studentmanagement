@@ -1,16 +1,16 @@
-/*
- *  Author            : Salum Sinare
- *  Author id         : A243345
- *  Author email      : salum.sinare@stanbic.co.tz
- *  Organization      : Stanbic Bank Tanzania LTD
- *  Organization Unit : Software Engineering
- *  Copyright (C) 2025
- *  Created on Aug 07, 2025
- */
+/**
+  * @ Author: Valence Mwigani
+  * @ Role: Full Stack Dev
+  * @ Create Time: 2025-08-18 19:04:44
+  * @ Modified by: Valence Mwigani
+  * @ Modified time: 2025-08-18 21:25:33
+  * @ Description:
+  */
+
+
 
 package com.valence.studentmanagement.student.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,8 +26,6 @@ public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(unique = true)
 	private String username;
-	
 	private String email;
 }

@@ -1,0 +1,66 @@
+<div th:fragment="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg z-50">
+    <div class="flex items-center justify-center h-16 bg-blue-600 text-white">
+        <h1 class="text-xl font-bold">SMS Dashboard</h1>
+    </div>
+    
+    <nav class="mt-8">
+        <div class="px-4 space-y-2">
+            <!-- Dashboard -->
+            <a th:href="@{/dashboard}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                <i class="fas fa-tachometer-alt mr-3"></i>
+                Dashboard
+            </a>
+            
+            <!-- Students Section -->
+            <div class="space-y-1">
+                <div class="flex items-center px-4 py-3 text-gray-900 font-medium">
+                    <i class="fas fa-user-graduate mr-3"></i>
+                    Students
+                </div>
+                <!-- Updated links to use Thymeleaf URL expressions -->
+                <a th:href="@{/student}" class="flex items-center px-8 py-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                    <i class="fas fa-list mr-3"></i>
+                    View All Students
+                </a>
+                <a th:href="@{/student/new}" class="flex items-center px-8 py-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                    <i class="fas fa-plus mr-3"></i>
+                    Add Student
+                </a>
+            </div>
+            
+            <!-- Parents Section -->
+            <div class="space-y-1">
+                <div class="flex items-center px-4 py-3 text-gray-900 font-medium">
+                    <i class="fas fa-users mr-3"></i>
+                    Parents
+                </div>
+                <!-- Updated links to use Thymeleaf URL expressions -->
+                <a th:href="@{/parent}" class="flex items-center px-8 py-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                    <i class="fas fa-list mr-3"></i>
+                    View All Parents
+                </a>
+                <a th:href="@{/parent/new}" class="flex items-center px-8 py-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                    <i class="fas fa-plus mr-3"></i>
+                    Add Parent
+                </a>
+            </div>
+            
+            <!-- Courses Section -->
+            <div class="space-y-1">
+                <div class="flex items-center px-4 py-3 text-gray-900 font-medium">
+                    <i class="fas fa-book mr-3"></i>
+                    Courses
+                </div>
+                <!-- Updated links to use Thymeleaf URL expressions -->
+                <a th:href="@{/course}" class="flex items-center px-8 py-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                    <i class="fas fa-list mr-3"></i>
+                    View All Courses
+                </a>
+                <a th:href="@{/course/new}" class="flex items-center px-8 py-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors">
+                    <i class="fas fa-plus mr-3"></i>
+                    Add Course
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>

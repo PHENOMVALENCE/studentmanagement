@@ -22,7 +22,7 @@ public class LayoutViewController {
 		model.addAttribute("title", "Home Page");
 		model.addAttribute("message", "Welcome to the Management System, you will be able to manage the Courses, Students and Parents details");
 		
-		return "layout";
+		return "test";
 	}
 	
 	@GetMapping("/home")

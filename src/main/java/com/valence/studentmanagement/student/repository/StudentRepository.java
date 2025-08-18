@@ -1,16 +1,14 @@
-/*
- *  Author            : Salum Sinare
- *  Author id         : A243345
- *  Author email      : salum.sinare@stanbic.co.tz
- *  Organization      : Stanbic Bank Tanzania LTD
- *  Organization Unit : Software Engineering
- *  Copyright (C) 2025
- *  Created on Aug 07, 2025
- */
+/**
+  * @ Author: Valence Mwigani
+  * @ Role: Full Stack Dev
+  * @ Create Time: 2025-08-18 19:04:44
+  * @ Modified by: Valence Mwigani
+  * @ Modified time: 2025-08-18 21:35:30
+  * @ Description:
+  */
 
 package com.valence.studentmanagement.student.repository;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,5 +21,5 @@ public interface StudentRepository extends JpaRepository<Student, Integer>{
 	Optional<Student> findByUsername(String username);
 	
 	
-	void deleteByUsername(String username);
+	void deleteById(Integer id);
 }

@@ -1,0 +1,17 @@
+<div th:fragment="scripts">
+    <script>
+        // Add any common JavaScript functionality here
+        document.addEventListener('DOMContentLoaded', function() {
+            // Highlight active sidebar link based on current URL
+            const currentPath = window.location.pathname;
+            const sidebarLinks = document.querySelectorAll('nav a');
+            
+            sidebarLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('bg-blue-50', 'text-blue-600');
+                    link.classList.remove('text-gray-600');
+                }
+            });
+        });
+    </script>
+</div>

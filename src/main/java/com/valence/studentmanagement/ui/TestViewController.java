@@ -20,7 +20,7 @@ public class TestViewController {
 	@GetMapping("/dev")
 	public String home(Model model) {
 		model.addAttribute("title", "DASHBOARD TESTER");
-		return "test";
+		return "dashboard";
 	}
 	
 }

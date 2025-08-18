@@ -1,12 +1,13 @@
-/*
- *  Author            : Salum Sinare
- *  Author id         : A243345
- *  Author email      : salum.sinare@stanbic.co.tz
- *  Organization      : Stanbic Bank Tanzania LTD
- *  Organization Unit : Software Engineering
- *  Copyright (C) 2025
- *  Created on Aug 07, 2025
- */
+/**
+  * @ Author: Valence Mwigani
+  * @ Role: Full Stack Dev
+  * @ Create Time: 2025-08-18 19:04:44
+  * @ Modified by: Valence Mwigani
+  * @ Modified time: 2025-08-18 21:34:11
+  * @ Description:
+  */
+
+
 
 package com.valence.studentmanagement.student.service;
 
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.valence.studentmanagement.student.model.Student;
 import com.valence.studentmanagement.student.repository.StudentRepository;
+
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,9 +52,9 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public boolean create(Student entity) {
+	public boolean create(Student student) {
 		try {
-			studentRepository.save(entity);
+			studentRepository.save(student);
 			return true;
 		}catch(Exception ex) {
 			log.error(ex.getMessage(),ex);
@@ -72,9 +74,9 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public boolean delete(String username) {
+	public boolean deleteById(Integer id) {
 		try {
-			studentRepository.deleteByUsername(username);
+			studentRepository.deleteById(id);
 			return true;
 		}catch(Exception ex) {
 			log.error(ex.getMessage(),ex);

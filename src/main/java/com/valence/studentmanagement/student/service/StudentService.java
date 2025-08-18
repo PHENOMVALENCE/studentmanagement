@@ -19,6 +19,7 @@ public interface StudentService {
 	List<Student> list();
 	Optional<Student> select(String username);
 	boolean update(Student entity);
-	boolean delete(String username);
 	boolean create(Student entity);
+    boolean deleteById(Integer id);
+	
 }

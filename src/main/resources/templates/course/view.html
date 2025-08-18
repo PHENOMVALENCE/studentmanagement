@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - SMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <div th:replace="~{fragments/base :: layout(~{::main})}">
+        <main>
+            <div class="mb-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <a th:href="@{/course}" class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                        <h1 class="text-2xl font-bold text-gray-900">Course Details</h1>
+                    </div>
+                    <div class="flex gap-2">
+                        <a th:href="@{/course/{id}/edit(id=${course.id})}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-edit mr-2"></i>Edit
+                        </a>
+                        <a th:href="@{/course/{id}/delete(id=${course.id})}" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg"
+                           onclick="return confirm('Are you sure you want to delete this course?')">
+                            <i class="fas fa-trash mr-2"></i>Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Course Information -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-4">Course Information</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-500">Course Code</label>
+                                <p class="mt-1 text-sm text-gray-900" th:text="${course.code}">CS101</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-500">Course Name</label>
+                                <p class="mt-1 text-sm text-gray-900" th:text="${course.name}">Introduction to Programming</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-500">Department</label>
+                                <p class="mt-1 text-sm text-gray-900" th:text="${course.department}">Computer Science</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-500">Credits</label>
+                                <p class="mt-1 text-sm text-gray-900" th:text="${course.credits}">3</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-500">Instructor</label>
+                                <p class="mt-1 text-sm text-gray-900" th:text="${course.instructor}">Dr. Smith</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-500">Max Students</label>
+                                <p class="mt-1 text-sm text-gray-900" th:text="${course.maxStudents}">30</p>
+                            </div>
+                        </div>
+                        <div class="mt-4" th:if="${course.description}">
+                            <label class="block text-sm font-medium text-gray-500">Description</label>
+                            <p class="mt-1 text-sm text-gray-900" th:text="${course.description}">Course description here...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enrollment Statistics -->
+                <div>
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-4">Enrollment</h2>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600" th:text="${#lists.size(course.students)}">25</div>
+                            <div class="text-sm text-gray-500">Students Enrolled</div>
+                            <div class="mt-2">
+                                <div class="text-sm text-gray-600">
+                                    <span th:text="${course.maxStudents - #lists.size(course.students)}">5</span> spots remaining
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enrolled Students -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-4">Enrolled Students</h2>
+                        <div class="space-y-3 max-h-96 overflow-y-auto">
+                            <div th:each="student : ${course.students}" class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <div>
+                                    <p class="font-medium text-gray-900" th:text="${student.username}">Student Name</p>
+                                    <p class="text-sm text-gray-500" th:text="${student.email}">student@example.com</p>
+                                </div>
+                                <a th:href="@{/student/{id}(id=${student.id})}" class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                            <div th:if="${#lists.isEmpty(course.students)}" class="text-center text-gray-500 py-4">
+                                No students enrolled yet
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

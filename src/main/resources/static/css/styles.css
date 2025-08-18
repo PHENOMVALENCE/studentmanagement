@@ -1,11 +1,10 @@
 .body {
 	background-color: rgb(192, 192, 192);
-	color: white;
+	color: rgb(20, 33, 215);
 	font-weight:400;
 	text-align: center;
 }
-
-.table {
+table {
 	background-color: black;
 	
 }
@@ -31,4 +30,10 @@ form {
 
 .form-control {
 	border-radius: 8px;
+}
+
+td {
+	border: 1px solid rgb(20, 33, 215);
+	padding: 8px;
+	color: black;
 }
