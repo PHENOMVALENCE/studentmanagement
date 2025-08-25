@@ -31,16 +31,6 @@
             
             <div class="bg-white rounded-lg shadow-sm border border-gray-200">
                 <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center space-x-4">
-                            <input type="text" placeholder="Search students..." class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <select class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option>All Students</option>
-                                <option>Active</option>
-                                <option>Inactive</option>
-                            </select>
-                        </div>
-                    </div>
                     
                     <div class="overflow-x-auto">
                         <table class="w-full">
@@ -78,22 +68,11 @@
                 </div>
             </div>
         </main>
-    </div> -->
+    </div> 
 
     <!-- Include Scripts -->
     <div th:replace="fragments/scripts :: scripts"></div>
     
-    <script>
-        function confirmDelete(studentId) {
-            if (confirm('Are you sure you want to delete this student?')) {
-                // Create a form and submit it for deletion
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = '/student/' + studentId + '/delete';
-                document.body.appendChild(form);
-                form.submit();
-            }
-        }
-    </script> 
+  
 </body>
 </html>

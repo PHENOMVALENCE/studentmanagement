@@ -14,13 +14,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.valence.studentmanagement.student.service.StudentService;
+
+import lombok.Data;
+
+@Data
 @Controller
 public class TestViewController {
+	private final StudentService studentService;
 
 	@GetMapping("/dev")
 	public String home(Model model) {
 		model.addAttribute("title", "DASHBOARD TESTER");
+		model.addAttribute("students", "studentService.list()");
+		model.addAttribute("student", "new Student()");
 		return "dashboard";
 	}
-	
+
 }

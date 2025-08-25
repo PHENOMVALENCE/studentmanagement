@@ -22,6 +22,9 @@ import com.valence.studentmanagement.student.service.StudentService;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Slf4j
 @Data
@@ -56,6 +59,12 @@ public class StudentViewController {
 
 		studentservice.create(student);
 		return "redirect:/student";
+	}
+
+	@PutMapping("student/{id}/edit")
+	public String updatestudent(@PathVariable int id, @RequestBody String entity) {
+		studentservice.update(null);
+		return entity;
 	}
 
 }
