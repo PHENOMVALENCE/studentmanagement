@@ -27,25 +27,35 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Controller
 public class StudentViewController {
-	
+
 	@Autowired
-	private  final StudentService studentservice;
-	
+	private final StudentService studentservice;
+
 	@GetMapping("/student")
-public String home(Model model) {
+	public String home(Model model) {
 		studentservice.list();
-		 model.addAttribute("title", "Student Management System Home Page ");
-		 model.addAttribute("name", "Valence Mwigani");
-         model.addAttribute("students", studentservice.list());
-         model.addAttribute("student", new Student());
+		model.addAttribute("title", "Student Management System Home Page ");
+		model.addAttribute("name", "Valence Mwigani");
+		model.addAttribute("students", studentservice.list());
+		model.addAttribute("student", new Student());
 		return "student/list";
 	}
-	
+
+	@GetMapping("/student/new")
+	public String homes(Model model) {
+		studentservice.list();
+		model.addAttribute("title", "Student Management System Home Page ");
+		model.addAttribute("name", "Valence Mwigani");
+		model.addAttribute("students", studentservice.list());
+		model.addAttribute("student", new Student());
+		return "student/add";
+	}
+
 	@PostMapping("/save")
-	public String saveStudent(@ModelAttribute ("student") Student student) {
-		
+	public String saveStudent(@ModelAttribute("student") Student student) {
+
 		studentservice.create(student);
 		return "redirect:/student";
 	}
-	
-	}
+
+}
