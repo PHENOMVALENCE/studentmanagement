@@ -1,19 +1,64 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${student.id} ? 'Update Student' : 'Add Student'"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${student.id} ? 'Update Student' : 'Add Student'">Add Student</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for form and error messages */
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .error-message {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        .form-input {
+            transition: border-color 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: #2563eb;
+            outline: none;
+        }
+        .submit-button {
+            transition: background-color 0.3s ease;
+        }
+        .submit-button:hover {
+            opacity: 0.9;
+        }
+    </style>
 </head>
-<body>
-    <div th:replace="~{fragments/sidebar.html}"></div>
-    <h1 th:text="${student.id} ? 'Update Student' : 'Add Student'"></h1>
-    <form th:action="${student.id} ? @{/update/{id}(id=${student.id})} : @{/create}" th:object="${student}" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" th:field="*{name}" />
-        <label for="email">Email:</label>
-        <input type="text" id="email" th:field="*{email}" />
-        <button type="submit">Submit</button>
-    </form>
-    <div th:replace="~{fragments/footer.html}"></div>
+<body class="bg-gray-100 font-sans">
+ 
+    <div class="flex min-h-screen">
+        <!-- Sidebar Fragment -->
+        <div th:replace="~{fragments/sidebar.html}" class="w-64 bg-gray-800 text-white"></div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-6">
+            <div class="form-container">
+                <h1 class="text-2xl font-bold text-gray-800 mb-6" th:text="${student.id} ? 'Update Student' : 'Add Student'"></h1>
+                <form th:action="${student.id} ? @{/update/{id}(id=${student.id})} : @{/create}" th:object="${student}" method="post" class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-700 font-medium mb-2">Name:</label>
+                        <input type="text" id="name" th:field="*{name}" class="form-input w-full px-3 py-2 border rounded-lg" required aria-required="true" aria-describedby="name-error"/>
+                        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" id="name-error" class="error-message"></div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700 font-medium mb-2">Email:</label>
+                        <input type="email" id="email" th:field="*{email}" class="form-input w-full px-3 py-2 border rounded-lg" required aria-required="true" aria-describedby="email-error"/>
+                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" id="email-error" class="error-message"></div>
+                    </div>
+                    <button type="submit" class="submit-button bg-blue-600 text-white px-4 py-2 rounded-lg w-full hover:bg-blue-700" role="button" aria-label="Submit student form">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Fragment -->
+    <div th:replace="~{fragments/footer.html}" class="bg-gray-800 text-white text-center py-4"></div>
 </body>
 </html>
