@@ -34,6 +34,7 @@ public class ParentViewController {
     @GetMapping("/create")
     public String createParentForm(Model model) {
         model.addAttribute("parent", new Parent());
+        model.addAttribute("featureName", "Parent");
         return "parent/add";
     }
 
