@@ -1,32 +1,33 @@
-<div class="sidebar">
-    <h2>Student Management</h2>
-    <ul>
-        <li><a href="/students">View Students</a></li>
-        <li><a href="/create">Add Student</a></li>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body class="bg-gray-100 font-sans">
+
+<aside th:fragment="sidebar(featureName)" class="w-64 bg-gray-900 text-white p-6 shadow-xl">
+    <div class="text-2xl font-extrabold text-center mb-10 text-blue-400">
+        <a href="/">SMS Dashboard</a>
+    </div>
+    <h2 class="text-lg font-semibold text-gray-300 uppercase tracking-wide mb-4" th:text="${featureName} + ' Management'"></h2>
+    <ul class="space-y-4">
+        <li>
+            <a th:href="@{'/'+${#strings.toLowerCase(featureName)} + 's/list'}"
+               class="flex items-center space-x-2 text-gray-300 hover:text-white hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V3zm2 2v10h10V5H5z" clip-rule="evenodd" />
+                </svg>
+                <span>View All</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{'/'+${#strings.toLowerCase(featureName)} + 's/create'}"
+               class="flex items-center space-x-2 text-gray-300 hover:text-white hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+                <span>Add New</span>
+            </a>
+        </li>
     </ul>
-</div>
-<style>
-    .sidebar {
-        width: 200px;
-        background-color: #f0f0f0;
-        padding: 15px;
-    }
-    .sidebar h2 {
-        font-size: 1.5em;
-        margin-bottom: 10px;
-    }
-    .sidebar ul {
-        list-style-type: none;
-        padding: 0;
-    }
-    .sidebar ul li {
-        margin-bottom: 10px;
-    }
-    .sidebar ul li a {
-        text-decoration: none;
-        color: #333;
-    }
-    .sidebar ul li a:hover {
-        text-decoration: underline;
-    }
-</style>
+</aside>
+
+</body>
+</html>

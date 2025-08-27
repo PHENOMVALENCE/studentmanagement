@@ -6,11 +6,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import valence.com.studentmanagement.student.model.Student;
 import valence.com.studentmanagement.student.service.StudentService;
 
 @Controller
+@RequestMapping("/students")
+
 public class StudentViewController {
     private final StudentService studentService;
 
@@ -18,9 +21,10 @@ public class StudentViewController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/students")
+    @GetMapping("/list")
     public String getAllStudents(Model model) {
         model.addAttribute("students", studentService.getAllStudents());
+        model.addAttribute("featureName", "Student");
         return "student/list";
     }
 
@@ -33,7 +37,7 @@ public class StudentViewController {
     @PostMapping("/create")
     public String createStudent(@ModelAttribute Student student) {
         studentService.createStudent(student);
-        return "redirect:/students";
+        return "redirect:/students/list";
     }
 
     @GetMapping("/update/{id}")
@@ -42,15 +46,15 @@ public class StudentViewController {
         return "student/add";
     }
 
-   @PostMapping("/update/{id}")
-public String updateStudent(@PathVariable Integer id, @ModelAttribute Student student) {
-    studentService.updateStudent(id, student);
-    return "redirect:/students";
-}
+    @PostMapping("/update/{id}")
+    public String updateStudent(@PathVariable Integer id, @ModelAttribute Student student) {
+        studentService.updateStudent(id, student);
+        return "redirect:/students/list";
+    }
 
     @DeleteMapping("/delete/{id}")
     public String deleteStudent(@PathVariable Integer id) {
         studentService.deleteStudent(id);
-        return "redirect:/students";
+        return "redirect:/students/list";
     }
 }

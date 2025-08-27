@@ -9,16 +9,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import valence.com.studentmanagement.parent.model.Parent;
 import valence.com.studentmanagement.parent.service.ParentService;
 
 @RestController
+@RequestMapping("/api")
 public class ParentController {
+
     @Autowired
     private ParentService parentService;
-    @GetMapping("/parents")
+
+    @GetMapping("/all")
     public List<Parent> getAllParents() {
         return parentService.getAllParents();
     }
