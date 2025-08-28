@@ -1,33 +1,59 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title} ?: 'Student Management System'">Student Management System</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100 font-sans">
-
-<div th:fragment="header(featureName, title)" class="bg-gray-800 text-white p-4 shadow-md">
-    <div class="container mx-auto flex justify-between items-center">
-        <div class="text-2xl font-bold">
-            <a href="/" class="hover:text-gray-400 transition-colors">
-                Student Management System
-            </a>
+<body>
+    <header class="main-header d-flex align-items-center justify-content-between px-4" th:fragment="header(title, activeFeature)">
+        <!-- Mobile Menu Button -->
+        <button class="btn btn-outline-primary d-md-none" type="button" onclick="toggleSidebar()">
+            <i class="bi bi-list fs-5"></i>
+        </button>
+        
+        <!-- Page Title -->
+        <div class="d-flex align-items-center">
+            <h1 class="h4 mb-0 text-primary fw-bold" th:text="${title}">Page Title</h1>
+            <span class="badge bg-secondary ms-2 d-none d-md-inline" th:text="${activeFeature}">Feature</span>
         </div>
-        <nav class="space-x-4">
-            <a th:href="@{/students/list}"
-               th:classappend="${featureName == 'Student' ? 'text-yellow-400 font-semibold' : 'hover:text-gray-400'}"
-               class="transition-colors">Students</a>
-            <a th:href="@{/parents/list}"
-               th:classappend="${featureName == 'Parent' ? 'text-yellow-400 font-semibold' : 'hover:text-gray-400'}"
-               class="transition-colors">Parents</a>
-            <a th:href="@{/courses/list}"
-               th:classappend="${featureName == 'Course' ? 'text-yellow-400 font-semibold' : 'hover:text-gray-400'}"
-               class="transition-colors">Courses</a>
-        </nav>
-    </div>
-</div>
-
+        
+        <!-- Header Actions -->
+        <div class="d-flex align-items-center gap-3">
+            <!-- Search -->
+            <div class="position-relative d-none d-lg-block">
+                <input type="search" class="form-control form-control-sm" placeholder="Search..." style="width: 250px;">
+                <i class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-2 text-muted"></i>
+            </div>
+            
+            <!-- Notifications -->
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary btn-sm position-relative" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-bell"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
+                        3
+                    </span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><h6 class="dropdown-header">Notifications</h6></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle me-2"></i>New student registered</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-exclamation-triangle me-2"></i>Course capacity reached</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-check-circle me-2"></i>Parent meeting scheduled</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-center" href="#">View all notifications</a></li>
+                </ul>
+            </div>
+            
+            <!-- User Profile -->
+            <div class="dropdown">
+                <button class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-person-circle"></i>
+                    <span class="d-none d-md-inline">Admin</span>
+                    <i class="bi bi-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
 </body>
 </html>

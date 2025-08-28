@@ -1,51 +1,213 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${student.id} ? 'Update Student' : 'Add Student'">Add Student</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        .form-input {
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .form-input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
-            outline: none;
-        }
-    </style>
-</head>
-<body class="bg-gray-100 font-sans flex flex-col min-h-screen">
-
-    <div th:replace="~{fragments/header :: header('Student', ${student.id} ? 'Update Student' : 'Add Student')}"></div>
-
-    <div class="flex flex-1">
-        <div th:replace="~{fragments/sidebar :: sidebar('Student')}"></div>
-
-        <main class="flex-1 p-8">
-            <div class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-lg">
-                <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-8" th:text="${student.id} ? 'Update Student' : 'Add Student'"></h1>
-
-                <form th:action="${student.id} ? @{/students/update/{id}(id=${student.id})} : @{/students/create}" th:object="${student}" method="post">
-                    <div class="mb-6">
-                        <label for="name" class="block text-gray-700 font-medium mb-2">Name:</label>
-                        <input type="text" id="name" th:field="*{name}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200" required aria-required="true" aria-describedby="name-error"/>
-                        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" id="name-error" class="text-red-500 text-sm mt-1"></div>
-                    </div>
-                    <div class="mb-6">
-                        <label for="email" class="block text-gray-700 font-medium mb-2">Email:</label>
-                        <input type="email" id="email" th:field="*{email}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200" required aria-required="true" aria-describedby="email-error"/>
-                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" id="email-error" class="text-red-500 text-sm mt-1"></div>
-                    </div>
-                    <button type="submit" class="w-full bg-blue-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md">
-                        <span th:text="${student.id} ? 'Update Student' : 'Add Student'"></span>
-                    </button>
-                </form>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{layout/main :: layout(${student.id} ? 'Edit Student' : 'Add Student', ~{::content}, 'Student')}">
+<body>
+    <div th:fragment="content">
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="h3 mb-1 text-primary" th:text="${student.id} ? 'Edit Student' : 'Add New Student'">Add New Student</h2>
+                <p class="text-muted mb-0">Fill in the student information below</p>
             </div>
-        </main>
+            <a th:href="@{/students/list}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-2"></i>Back to List
+            </a>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Student Form -->
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Student Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="${student.id} ? @{/students/update/{id}(id=${student.id})} : @{/students/create}" 
+                              th:object="${student}" method="post" novalidate>
+                            
+                            <div class="row g-3">
+                                <!-- Personal Information -->
+                                <div class="col-12">
+                                    <h6 class="text-primary border-bottom pb-2 mb-3">Personal Information</h6>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="email" th:field="*{email}" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" th:field="*{phone}">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                                    <input type="date" class="form-control" id="dateOfBirth" th:field="*{dateOfBirth}">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <select class="form-select" id="gender" th:field="*{gender}">
+                                        <option value="">Select Gender</option>
+                                        <option value="MALE">Male</option>
+                                        <option value="FEMALE">Female</option>
+                                        <option value="OTHER">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Academic Information -->
+                                <div class="col-12 mt-4">
+                                    <h6 class="text-primary border-bottom pb-2 mb-3">Academic Information</h6>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="studentId" class="form-label">Student ID <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="studentId" th:field="*{studentId}" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('studentId')}" th:errors="*{studentId}"></div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="enrollmentDate" class="form-label">Enrollment Date <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="enrollmentDate" th:field="*{enrollmentDate}" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('enrollmentDate')}" th:errors="*{enrollmentDate}"></div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="grade" class="form-label">Grade Level</label>
+                                    <select class="form-select" id="grade" th:field="*{grade}">
+                                        <option value="">Select Grade</option>
+                                        <option value="1">Grade 1</option>
+                                        <option value="2">Grade 2</option>
+                                        <option value="3">Grade 3</option>
+                                        <option value="4">Grade 4</option>
+                                        <option value="5">Grade 5</option>
+                                        <option value="6">Grade 6</option>
+                                        <option value="7">Grade 7</option>
+                                        <option value="8">Grade 8</option>
+                                        <option value="9">Grade 9</option>
+                                        <option value="10">Grade 10</option>
+                                        <option value="11">Grade 11</option>
+                                        <option value="12">Grade 12</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select class="form-select" id="status" th:field="*{status}">
+                                        <option value="ACTIVE">Active</option>
+                                        <option value="INACTIVE">Inactive</option>
+                                        <option value="GRADUATED">Graduated</option>
+                                        <option value="TRANSFERRED">Transferred</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Address Information -->
+                                <div class="col-12 mt-4">
+                                    <h6 class="text-primary border-bottom pb-2 mb-3">Address Information</h6>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label for="address" class="form-label">Street Address</label>
+                                    <textarea class="form-control" id="address" th:field="*{address}" rows="2"></textarea>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label for="city" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="city" th:field="*{city}">
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label for="state" class="form-label">State/Province</label>
+                                    <input type="text" class="form-control" id="state" th:field="*{state}">
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <label for="zipCode" class="form-label">ZIP/Postal Code</label>
+                                    <input type="text" class="form-control" id="zipCode" th:field="*{zipCode}">
+                                </div>
+                            </div>
+                            
+                            <!-- Form Actions -->
+                            <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                <a th:href="@{/students/list}" class="btn btn-outline-secondary">
+                                    <i class="bi bi-x-circle me-2"></i>Cancel
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-circle me-2"></i>
+                                    <span th:text="${student.id} ? 'Update Student' : 'Create Student'">Create Student</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <!-- Help Card -->
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0"><i class="bi bi-info-circle me-2"></i>Help & Tips</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <h6 class="text-primary">Required Fields</h6>
+                            <p class="small text-muted">Fields marked with <span class="text-danger">*</span> are required and must be filled out.</p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <h6 class="text-primary">Student ID</h6>
+                            <p class="small text-muted">Use a unique identifier for each student. This cannot be changed later.</p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <h6 class="text-primary">Email Address</h6>
+                            <p class="small text-muted">This will be used for system notifications and communication.</p>
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <i class="bi bi-lightbulb me-2"></i>
+                            <strong>Tip:</strong> Double-check all information before saving. Some fields cannot be modified after creation.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="card mt-3">
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0"><i class="bi bi-lightning me-2"></i>Quick Actions</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="#" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-person-lines-fill me-2"></i>Import from CSV
+                            </a>
+                            <a href="#" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-download me-2"></i>Download Template
+                            </a>
+                            <a th:href="@{/students/list}" class="btn btn-outline-info btn-sm">
+                                <i class="bi bi-list-ul me-2"></i>View All Students
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
