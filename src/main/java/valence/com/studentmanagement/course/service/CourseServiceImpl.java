@@ -17,25 +17,35 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
+
     }
 
     @Override
     public Course getCourseById(int id) {
-        return courseRepository.findById(id);
+        return courseRepository.findById(id).orElse(null);
     }
 
     @Override
     public Course createCourse(Course course) {
-        return courseRepository.save(course Course);
+        return courseRepository.save(course);
     }
 
     @Override
     public Course updateCourse(int id, Course course) {
-    return courseRepository.updateCourse();
+        Course existingCourse = courseRepository.findById(id).orElse(null);
+        if (existingCourse != null) {
+            existingCourse.setName(course.getName());
+            existingCourse.setDescription(course.getDescription());
+            return courseRepository.save(existingCourse);
+        }
+        return null;
     }
+    
 
     @Override
     public void deleteCourse(int id) {
+        courseRepository.deleteById(id);
+
     
     }
 

@@ -1,11 +1,9 @@
 package valence.com.studentmanagement.ui;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import valence.com.studentmanagement.parent.service.ParentService;
-import valence.com.studentmanagement.student.service.StudentService;
+
 
 // You can create a new controller specifically for the dashboard
 // or add this method to an existing HomeController
@@ -13,10 +11,10 @@ import valence.com.studentmanagement.student.service.StudentService;
 public class DashboardController {
 
     // You would inject your services here to get the data
-     @Autowired
-    private StudentService studentService;
-     @Autowired
-     private ParentService parentService;
+    // @Autowired
+    // private StudentService studentService;
+    // @Autowired
+    // private ParentService parentService;
     // @Autowired
     // private CourseService courseService;
 
