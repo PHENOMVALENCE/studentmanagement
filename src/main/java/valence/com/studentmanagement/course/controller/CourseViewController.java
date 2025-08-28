@@ -24,6 +24,7 @@ public class CourseViewController {
     @GetMapping("/list")
     public String listCourses(Model model) {
         model.addAttribute("courses", courseService.getAllCourses());
+        model.addAttribute("activeFeature", "Course");
         return "course/list";
     }
     @GetMapping("/create")

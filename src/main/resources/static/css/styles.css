@@ -1,0 +1,65 @@
+/* Custom CSS file for project-specific styles */
+
+/* Example of a custom class */
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.error-message {
+    color: #dc2626; /* red-600 */
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Base styles for form inputs */
+.form-input {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: #3b82f6; /* blue-500 */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+/* Base styles for buttons */
+.submit-button, .action-button {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-button:hover, .action-button:hover {
+    transform: translateY(-1px);
+}
+
+/* Styles for DataTables */
+#courseTable_filter input,
+#courseTable_length select {
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db; /* gray-300 */
+    padding: 0.5rem 0.75rem;
+    margin: 0 0.5rem;
+}
+
+#courseTable_info {
+    font-size: 0.875rem;
+    color: #4b5563; /* gray-600 */
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0.5rem 0.75rem;
+    margin: 0 0.25rem;
+    border-radius: 0.375rem;
+    background-color: #e5e7eb; /* gray-200 */
+    color: #4b5563; /* gray-600 */
+    transition: background-color 0.2s;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-color: #d1d5db; /* gray-300 */
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background-color: #3b82f6; /* blue-500 */
+    color: white;
+}

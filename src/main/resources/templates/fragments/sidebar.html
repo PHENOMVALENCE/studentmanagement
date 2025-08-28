@@ -1,33 +1,202 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<body class="bg-gray-100 font-sans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .dropdown-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+        }
 
-<aside th:fragment="sidebar(featureName)" class="w-64 bg-gray-900 text-white p-6 shadow-xl">
-    <div class="text-2xl font-extrabold text-center mb-10 text-blue-400">
-        <a href="/">SMS Dashboard</a>
-    </div>
-    <h2 class="text-lg font-semibold text-gray-300 uppercase tracking-wide mb-4" th:text="${featureName} + ' Management'"></h2>
-    <ul class="space-y-4">
-        <li>
-            <a th:href="@{'/'+${#strings.toLowerCase(featureName)} + 's/list'}"
-               class="flex items-center space-x-2 text-gray-300 hover:text-white hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V3zm2 2v10h10V5H5z" clip-rule="evenodd" />
-                </svg>
-                <span>View All</span>
-            </a>
-        </li>
-        <li>
-            <a th:href="@{'/'+${#strings.toLowerCase(featureName)} + 's/create'}"
-               class="flex items-center space-x-2 text-gray-300 hover:text-white hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
-                </svg>
-                <span>Add New</span>
-            </a>
-        </li>
-    </ul>
-</aside>
+        .dropdown-menu.open {
+            max-height: 300px; /* Increased for better visibility */
+            opacity: 1;
+        }
 
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-arrow.rotate {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <aside class="w-64 bg-gray-900 text-white p-6 shadow-xl min-h-screen" th:fragment="sidebar(activeFeature)">
+        <div class="text-2xl font-extrabold text-center mb-10 text-blue-400">
+            <a th:href="@{/}">SMS Dashboard</a>
+        </div>
+        
+        <nav class="space-y-2">
+            <!-- Dashboard Link -->
+            <a th:href="@{/}" th:classappend="${activeFeature == 'Dashboard' ? 'bg-gray-700 text-white' : 'text-gray-300 hover:text-white hover:bg-gray-700'}"
+               class="w-full flex items-center justify-between p-3 rounded-lg transition-colors duration-200">
+                <div class="flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                    <span class="font-semibold">Dashboard</span>
+                </div>
+            </a>
+
+            <!-- Parent Management -->
+            <div class="dropdown-container">
+                <button type="button" onclick="toggleDropdown('parent-dropdown')"
+                        class="w-full flex items-center justify-between text-gray-300 hover:text-white hover:bg-gray-700 p-3 rounded-lg transition-colors duration-200 focus:outline-none">
+                    <div class="flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="font-semibold">Parent Management</span>
+                    </div>
+                    <svg id="parent-arrow" class="h-4 w-4 dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <div id="parent-dropdown" class="dropdown-menu ml-4 mt-2 space-y-1">
+                    <a th:href="@{/parents/list}" class="block text-gray-400 hover:text-white hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200">
+                        <div class="flex items-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V3zm2 2v10h10V5H5z" clip-rule="evenodd" />
+                            </svg>
+                            <span>List Parents</span>
+                        </div>
+                    </a>
+                    <a th:href="@{/parents/create}" class="block text-gray-400 hover:text-white hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200">
+                        <div class="flex items-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Add Parent</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Student Management -->
+            <div class="dropdown-container">
+                <button type="button" onclick="toggleDropdown('student-dropdown')"
+                        class="w-full flex items-center justify-between text-gray-300 hover:text-white hover:bg-gray-700 p-3 rounded-lg transition-colors duration-200 focus:outline-none">
+                    <div class="flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                        </svg>
+                        <span class="font-semibold">Student Management</span>
+                    </div>
+                    <svg id="student-arrow" class="h-4 w-4 dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <div id="student-dropdown" class="dropdown-menu ml-4 mt-2 space-y-1">
+                    <a th:href="@{/students/list}" class="block text-gray-400 hover:text-white hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200">
+                        <div class="flex items-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V3zm2 2v10h10V5H5z" clip-rule="evenodd" />
+                            </svg>
+                            <span>List Students</span>
+                        </div>
+                    </a>
+                    <a th:href="@{/students/create}" class="block text-gray-400 hover:text-white hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200">
+                        <div class="flex items-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Add Student</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Course Management -->
+            <div class="dropdown-container">
+                <button type="button" onclick="toggleDropdown('course-dropdown')"
+                        class="w-full flex items-center justify-between text-gray-300 hover:text-white hover:bg-gray-700 p-3 rounded-lg transition-colors duration-200 focus:outline-none">
+                    <div class="flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+                        </svg>
+                        <span class="font-semibold">Course Management</span>
+                    </div>
+                    <svg id="course-arrow" class="h-4 w-4 dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <div id="course-dropdown" class="dropdown-menu ml-4 mt-2 space-y-1">
+                    <a th:href="@{/courses/list}" class="block text-gray-400 hover:text-white hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200">
+                        <div class="flex items-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V3zm2 2v10h10V5H5z" clip-rule="evenodd" />
+                            </svg>
+                            <span>List Courses</span>
+                        </div>
+                    </a>
+                    <a th:href="@{/courses/create}" class="block text-gray-400 hover:text-white hover:bg-gray-700 p-2 rounded-lg transition-colors duration-200">
+                        <div class="flex items-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Add Course</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <script>
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            const arrowId = dropdownId.replace('-dropdown', '-arrow');
+            const arrow = document.getElementById(arrowId);
+            
+            if (!dropdown || !arrow) {
+                console.error('Dropdown or arrow not found:', dropdownId, arrowId);
+                return;
+            }
+            
+            // Close other dropdowns
+            const allDropdowns = document.querySelectorAll('.dropdown-menu');
+            const allArrows = document.querySelectorAll('.dropdown-arrow');
+            
+            allDropdowns.forEach(menu => {
+                if (menu.id !== dropdownId) {
+                    menu.classList.remove('open');
+                }
+            });
+            
+            allArrows.forEach(arrowEl => {
+                if (arrowEl.id !== arrowId) {
+                    arrowEl.classList.remove('rotate');
+                }
+            });
+            
+            // Toggle current dropdown
+            dropdown.classList.toggle('open');
+            arrow.classList.toggle('rotate');
+        }
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown-container')) {
+                const allDropdowns = document.querySelectorAll('.dropdown-menu');
+                const allArrows = document.querySelectorAll('.dropdown-arrow');
+                
+                allDropdowns.forEach(menu => menu.classList.remove('open'));
+                allArrows.forEach(arrow => arrow.classList.remove('rotate'));
+            }
+        });
+        
+        // Prevent dropdown from closing when clicking inside it
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+        });
+    </script>
 </body>
 </html>
