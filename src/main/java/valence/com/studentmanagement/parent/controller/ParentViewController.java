@@ -37,6 +37,11 @@ public class ParentViewController {
         model.addAttribute("featureName", "Parent");
         return "parent/add";
     }
+      @GetMapping("/{id}")
+    public String viewParent(@PathVariable Integer id, Model model) {
+        model.addAttribute("parent", parentService.getParentById(id));
+        return "parent/view"; // create this view template
+    }
 
     @PostMapping("/create")
     public String createParent(@ModelAttribute Parent parent) {

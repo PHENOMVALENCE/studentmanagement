@@ -52,9 +52,30 @@ public class StudentViewController {
         return "redirect:/students/list";
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteStudent(@PathVariable Integer id) {
         studentService.deleteStudent(id);
         return "redirect:/students/list";
     }
+    // Add this method for View action
+    @GetMapping("/{id}")
+    public String viewStudent(@PathVariable Integer id, Model model) {
+        model.addAttribute("student", studentService.getStudentById(id));
+        return "student/view"; // create this view template
+    }
+
+    // Add this method for Edit action
+    @GetMapping("/edit/{id}")
+    public String editStudentForm(@PathVariable Integer id, Model model) {
+        model.addAttribute("student", studentService.getStudentById(id));
+        return "student/add";
+    }
+
+    // Optionally change delete to GET (not recommended for destructive operations)
+    @GetMapping("/delete/{id}")
+    public String deleteStudentGet(@PathVariable Integer id) {
+        studentService.deleteStudent(id);
+        return "redirect:/students/list";
+    }
+
 }

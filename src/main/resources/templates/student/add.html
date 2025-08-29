@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" 
-      th:replace="~{layout/main :: layout(${student.id} ? 'Edit Student' : 'Add Student', ~{::content}, 'Student')}">
+      th:replace="~{layout/main :: layout(${student.id} ? 'Edit Student' : 'Add Student', ~{::content}, 'Students')}">
 <body>
     <div th:fragment="content">
         <!-- Page Header -->
@@ -32,16 +32,12 @@
                                 </div>
                                 
                                 <div class="col-md-6">
-                                    <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                                    <label for="name" class="form-label">User Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="name" th:field="*{name}" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                                 </div>
                                 
-                                <div class="col-md-6">
-                                    <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
-                                </div>
+                              
                                 
                                 <div class="col-md-6">
                                     <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
@@ -49,100 +45,7 @@
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                                 </div>
                                 
-                                <div class="col-md-6">
-                                    <label for="phone" class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-control" id="phone" th:field="*{phone}">
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                                    <input type="date" class="form-control" id="dateOfBirth" th:field="*{dateOfBirth}">
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></div>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label for="gender" class="form-label">Gender</label>
-                                    <select class="form-select" id="gender" th:field="*{gender}">
-                                        <option value="">Select Gender</option>
-                                        <option value="MALE">Male</option>
-                                        <option value="FEMALE">Female</option>
-                                        <option value="OTHER">Other</option>
-                                    </select>
-                                </div>
-                                
-                                <!-- Academic Information -->
-                                <div class="col-12 mt-4">
-                                    <h6 class="text-primary border-bottom pb-2 mb-3">Academic Information</h6>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label for="studentId" class="form-label">Student ID <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="studentId" th:field="*{studentId}" required>
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('studentId')}" th:errors="*{studentId}"></div>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label for="enrollmentDate" class="form-label">Enrollment Date <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" id="enrollmentDate" th:field="*{enrollmentDate}" required>
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('enrollmentDate')}" th:errors="*{enrollmentDate}"></div>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label for="grade" class="form-label">Grade Level</label>
-                                    <select class="form-select" id="grade" th:field="*{grade}">
-                                        <option value="">Select Grade</option>
-                                        <option value="1">Grade 1</option>
-                                        <option value="2">Grade 2</option>
-                                        <option value="3">Grade 3</option>
-                                        <option value="4">Grade 4</option>
-                                        <option value="5">Grade 5</option>
-                                        <option value="6">Grade 6</option>
-                                        <option value="7">Grade 7</option>
-                                        <option value="8">Grade 8</option>
-                                        <option value="9">Grade 9</option>
-                                        <option value="10">Grade 10</option>
-                                        <option value="11">Grade 11</option>
-                                        <option value="12">Grade 12</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label for="status" class="form-label">Status</label>
-                                    <select class="form-select" id="status" th:field="*{status}">
-                                        <option value="ACTIVE">Active</option>
-                                        <option value="INACTIVE">Inactive</option>
-                                        <option value="GRADUATED">Graduated</option>
-                                        <option value="TRANSFERRED">Transferred</option>
-                                    </select>
-                                </div>
-                                
-                                <!-- Address Information -->
-                                <div class="col-12 mt-4">
-                                    <h6 class="text-primary border-bottom pb-2 mb-3">Address Information</h6>
-                                </div>
-                                
-                                <div class="col-12">
-                                    <label for="address" class="form-label">Street Address</label>
-                                    <textarea class="form-control" id="address" th:field="*{address}" rows="2"></textarea>
-                                </div>
-                                
-                                <div class="col-md-4">
-                                    <label for="city" class="form-label">City</label>
-                                    <input type="text" class="form-control" id="city" th:field="*{city}">
-                                </div>
-                                
-                                <div class="col-md-4">
-                                    <label for="state" class="form-label">State/Province</label>
-                                    <input type="text" class="form-control" id="state" th:field="*{state}">
-                                </div>
-                                
-                                <div class="col-md-4">
-                                    <label for="zipCode" class="form-label">ZIP/Postal Code</label>
-                                    <input type="text" class="form-control" id="zipCode" th:field="*{zipCode}">
-                                </div>
-                            </div>
-                            
+                              
                             <!-- Form Actions -->
                             <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
                                 <a th:href="@{/students/list}" class="btn btn-outline-secondary">

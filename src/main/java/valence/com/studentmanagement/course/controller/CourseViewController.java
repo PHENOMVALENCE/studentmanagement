@@ -51,5 +51,11 @@ public class CourseViewController {
         courseService.deleteCourse(id);
         return "redirect:/courses/list";
     }
+        @GetMapping("/{id}")
+    public String viewCourse(@PathVariable Integer id, Model model) {
+        model.addAttribute("course", courseService.getCourseById(id));
+        return "course/view"; // create this view template
+    }
+
 
 }
