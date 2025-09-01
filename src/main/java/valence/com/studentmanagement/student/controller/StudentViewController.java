@@ -6,12 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import valence.com.studentmanagement.student.model.Student;
 import valence.com.studentmanagement.student.service.StudentService;
 
 @Controller
 @RequestMapping("/students")
+@Tag(name = "Student Management", description = "APIs for student management")
+
 
 public class StudentViewController {
     private final StudentService studentService;

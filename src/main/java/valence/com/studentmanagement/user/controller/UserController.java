@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import valence.com.studentmanagement.user.model.User;
 import valence.com.studentmanagement.user.repository.UserRepository;
 @Controller
+@Tag(name = "User Management", description = "APIs for user management")
+
 public class UserController {
 
     private final UserRepository userRepository;
@@ -46,5 +49,6 @@ public String dashboard(Model model, @AuthenticationPrincipal UserDetails userDe
     model.addAttribute("username", userDetails.getUsername());
     return "dashboard"; // Thymeleaf template
 }
+
 
 }

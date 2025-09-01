@@ -10,6 +10,23 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Custom CSS -->
+     <!-- DataTables CSS -->
+<link
+  rel="stylesheet"
+  href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"
+/>
+
+<!-- jQuery (required for DataTables) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- DataTables JS -->
+<script
+  src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"
+></script>
+<script
+  src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"
+></script>
+
     <style>
         :root {
             --sidebar-width: 280px;
@@ -229,6 +246,22 @@
                 bsAlert.close();
             });
         }, 5000);
+
+        
+  $(document).ready(function () {
+    $("#parentsTable").DataTable({
+      pageLength: 10, // number of rows per page
+      lengthChange: true, // allow user to change rows per page
+      searching: true, // enable search
+      ordering: true, // enable sorting
+      order: [[0, "asc"]], // default sorting by first column (Name)
+      columnDefs: [
+        { orderable: false, targets: 5 } // disable ordering on Actions column
+      ]
+    });
+  });
+
+
     </script>
 </body>
 </html>
