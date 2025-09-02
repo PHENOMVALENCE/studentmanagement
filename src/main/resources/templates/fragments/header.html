@@ -43,7 +43,7 @@
             <div class="dropdown">
                 <button class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
                     <i class="bi bi-person-circle"></i>
-                    <span class="d-none d-md-inline">Admin</span>
+                    <span class="d-none d-md-inline" th:text="${#authentication.principal.username}"</span>
                     
                     <i class="bi bi-chevron-down"></i>
                 </button>
