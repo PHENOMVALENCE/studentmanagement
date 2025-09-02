@@ -19,7 +19,7 @@ public class Parent {
     
     private String address;
     private String relationship;
-    private Integer phone;
+    private Long phone;
 
 
     
