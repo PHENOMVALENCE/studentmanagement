@@ -1,6 +1,5 @@
 package valence.com.studentmanagement.config;
 
-import valence.com.studentmanagement.user.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,6 +8,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import valence.com.studentmanagement.repository.UserRepository;
 
 @Configuration
 public class SecurityConfig {
@@ -27,18 +28,16 @@ public class SecurityConfig {
             )
             .logout(logout -> logout.permitAll())
             .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
-            .headers(headers -> headers.frameOptions().disable());
+            .headers(headers -> headers.frameOptions(frame -> frame.disable())); // ✅ new way
 
         return http.build();
     }
 
-    // PasswordEncoder bean
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // UserDetailsService bean
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         return username -> {
@@ -47,10 +46,9 @@ public class SecurityConfig {
 
             return org.springframework.security.core.userdetails.User
                     .withUsername(user.getUsername())
-                    .password(user.getPassword()) // hashed password
+                    .password(user.getPassword())
                     .roles(user.getRole().replace("ROLE_", ""))
                     .build();
         };
     }
-    
 }

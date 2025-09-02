@@ -30,7 +30,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="card-title text-muted mb-1">Total Students</h6>
-                                <h3 class="mb-0 text-primary">1,234</h3>
+                               <h3 class="mb-0 text-primary" th:text="${totalStudents}">0</h3>
                                 <small class="text-success"><i class="bi bi-arrow-up"></i> +12% from last month</small>
                             </div>
                             <div class="bg-primary bg-opacity-10 rounded-circle p-3">
@@ -47,7 +47,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="card-title text-muted mb-1">Active Courses</h6>
-                                <h3 class="mb-0 text-success">45</h3>
+                                <h3 class="mb-0 text-success" th:text="${totalCourses}">0</h3>
                                 <small class="text-success"><i class="bi bi-arrow-up"></i> +3 new courses</small>
                             </div>
                             <div class="bg-success bg-opacity-10 rounded-circle p-3">
@@ -64,7 +64,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="card-title text-muted mb-1">Registered Parents</h6>
-                                <h3 class="mb-0 text-warning">892</h3>
+                              <h3 class="mb-0 text-warning" th:text="${totalParents}">0</h3>
                                 <small class="text-muted"><i class="bi bi-dash"></i> No change</small>
                             </div>
                             <div class="bg-warning bg-opacity-10 rounded-circle p-3">
@@ -81,7 +81,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 class="card-title text-muted mb-1">Enrollments</h6>
-                                <h3 class="mb-0 text-info">2,156</h3>
+                                <h3 class="mb-0 text-info" th:text="${totalEnrollments}">0</h3>
                                 <small class="text-success"><i class="bi bi-arrow-up"></i> +8% this week</small>
                             </div>
                             <div class="bg-info bg-opacity-10 rounded-circle p-3">
@@ -148,56 +148,28 @@
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
-                                                    <i class="bi bi-person-fill text-white small"></i>
-                                                </div>
-                                                <div>
-                                                    <div class="fw-semibold">John Doe</div>
-                                                    <small class="text-muted">ID: STU001</small>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>Mathematics 101</td>
-                                        <td>Jan 15, 2025</td>
-                                        <td><span class="badge bg-success">Enrolled</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
-                                                    <i class="bi bi-person-fill text-white small"></i>
-                                                </div>
-                                                <div>
-                                                    <div class="fw-semibold">Jane Smith</div>
-                                                    <small class="text-muted">ID: STU002</small>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>English Literature</td>
-                                        <td>Jan 14, 2025</td>
-                                        <td><span class="badge bg-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="bg-info rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
-                                                    <i class="bi bi-person-fill text-white small"></i>
-                                                </div>
-                                                <div>
-                                                    <div class="fw-semibold">Mike Johnson</div>
-                                                    <small class="text-muted">ID: STU003</small>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>Physics 201</td>
-                                        <td>Jan 13, 2025</td>
-                                        <td><span class="badge bg-success">Enrolled</span></td>
-                                    </tr>
-                                </tbody>
+                               <tbody>
+<tr th:each="enrollment : ${recentEnrollments}">
+    <td>
+        <div class="d-flex align-items-center">
+            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-2"
+                 style="width: 32px; height: 32px;">
+                <i class="bi bi-person-fill text-white small"></i>
+            </div>
+            <div>
+                <div class="fw-semibold" th:text="${enrollment.student.name}">Student Name</div>
+                <small class="text-muted">ID: <span th:text="${enrollment.student.id}">STU001</span></small>
+            </div>
+        </div>
+    </td>
+    <td th:text="${enrollment.course.name}">Course</td>
+    <td th:text="${#temporals.format(enrollment.enrollmentDate, 'MMM dd, yyyy')}">Date</td>
+    <td>
+        <span class="badge bg-success" th:text="${enrollment.status}">Status</span>
+    </td>
+</tr>
+</tbody>
+
                             </table>
                         </div>
                     </div>
