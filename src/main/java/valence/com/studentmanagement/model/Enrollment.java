@@ -10,7 +10,28 @@ import java.time.LocalDate;
 @Table(name = "enrollments")
 public class Enrollment {
 
-    @Id
+    public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	public LocalDate getEnrollmentDate() {
+		return enrollmentDate;
+	}
+	public void setEnrollmentDate(LocalDate enrollmentDate) {
+		this.enrollmentDate = enrollmentDate;
+	}
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 

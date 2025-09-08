@@ -18,7 +18,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/h2-console/**", "/profile/**", "/register", "/login", "/css/**", "/js/**").permitAll()
+                .requestMatchers(
+                        "/h2-console/**",
+                        "/register",
+                        "/login",
+                        "/css/**",
+                        "/js/**"
+                ).permitAll()
+                .requestMatchers("/profile/**").authenticated()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -26,9 +33,12 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/dashboard", true)
                 .permitAll()
             )
-            .logout(logout -> logout.permitAll())
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+            )
             .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
-            .headers(headers -> headers.frameOptions(frame -> frame.disable())); // ✅ new way
+            .headers(headers -> headers.frameOptions(frame -> frame.disable())); // for H2 console
 
         return http.build();
     }
@@ -40,15 +50,13 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
-        return username -> {
-            var user = userRepository.findByUsername(username);
-            if (user == null) throw new UsernameNotFoundException("User not found");
-
-            return org.springframework.security.core.userdetails.User
-                    .withUsername(user.getUsername())
-                    .password(user.getPassword())
-                    .roles(user.getRole().replace("ROLE_", ""))
-                    .build();
-        };
+        return username -> userRepository.findByUsername(username)
+                .map(user -> org.springframework.security.core.userdetails.User
+                        .withUsername(user.getUsername())
+                        .password(user.getPassword())
+                        // Spring automatically prefixes with ROLE_ if missing
+                        .roles(user.getRole().replace("ROLE_", ""))
+                        .build())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     }
 }

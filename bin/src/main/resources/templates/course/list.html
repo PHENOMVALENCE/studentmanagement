@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{layout/main :: layout('Courses', ~{::content}, 'Courses')}">
+<body>
+    <div th:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Course Management</h2>
+            <a th:href="@{/courses/create}" class="btn btn-primary">
+                <i class="bi bi-plus-circle me-2"></i>Create New Course
+            </a>
+        </div>
+        
+        <!-- Course cards/grid -->
+        <div class="row">
+            <div th:each="course : ${courses}" class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${course.name}">Mathematics 101</h5>
+                        <h6 class="card-subtitle mb-2 text-muted" th:text="${course.code}">MATH101</h6>
+                        <p class="card-text" th:text="${course.description}">Introduction to basic mathematical concepts.</p>
+                     <p class="card-text" th:text="${course.instructor}">Sir. Valence.</p>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-info" th:text="${course.credits} + ' credits'">3 credits</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white d-flex justify-content-between">
+                        <a th:href="@{/courses/{id}(id=${course.id})}" class="btn btn-sm btn-outline-primary">View Details</a>
+                        <a th:href="@{/courses/edit/{id}(id=${course.id})}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

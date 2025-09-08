@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main :: layout('Edit Profile', ~{::section}, 'profile')}">
+
+<th:block th:fragment="section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0">Edit Profile</h5>
+          </div>
+          <div class="card-body">
+            <form th:action="@{/profile/edit}" th:object="${user}" method="post">
+				<div class="mb-3">
+				              <label class="form-label">UserName</label>
+				              <input type="text" class="form-control" th:field="*{username}" />
+				            </div>
+              <div class="mb-3">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-control" th:field="*{firstName}" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-control" th:field="*{lastName}" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" th:field="*{email}" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Bio</label>
+                <textarea class="form-control" th:field="*{bio}" rows="3"></textarea>
+              </div>
+              <div class="text-end">
+                <button type="submit" class="btn btn-success">
+                  <i class="bi bi-check-circle"></i> Save Changes
+                </button>
+                <a th:href="@{/profile}" class="btn btn-secondary">
+                  <i class="bi bi-x-circle"></i> Cancel
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+</html>

@@ -1,11 +1,13 @@
 package valence.com.studentmanagement.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.stereotype.Repository;
 import valence.com.studentmanagement.model.User;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUsername(String username);
+import java.util.Optional;
 
-    void save(org.springframework.boot.autoconfigure.security.SecurityProperties.User user);
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+	Optional<User> findByUsername(String username);
+
 }

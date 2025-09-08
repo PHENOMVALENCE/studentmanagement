@@ -42,4 +42,12 @@ public class DashboardController {
 
         return "dashboard";
     }
+    @GetMapping("/docs")
+    public String docpage(Model model) {
+    model.addAttribute("title", "Documentation");
+    
+    return "docs";
+    
+    }
+    
 }
