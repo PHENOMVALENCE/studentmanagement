@@ -12,10 +12,17 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
 
+
 @Entity
 @Data
+
 public class Student {
 
+
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     public Integer getId() {
 		return id;
 	}
@@ -48,14 +55,11 @@ public class Student {
 		this.enrollmentDate = enrollmentDate;
 	}
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String name;
+	private String name;
     private String email;
 
       @Column(name = "enrollment_date")
-    @Temporal(TemporalType.DATE) // Use TIMESTAMP if it includes time
+    @Temporal(TemporalType.DATE) 
     private Date enrollmentDate;
     
 
