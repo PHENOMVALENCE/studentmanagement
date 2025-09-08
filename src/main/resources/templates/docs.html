@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html
+lang="en"
+xmlns:th="http://www.thymeleaf.org"
+th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
+>
+<body>
+<div th:fragment="content">
+    <!-- Header Section -->
+    <div class="container-fluid bg-primary text-white py-5 mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1 class="display-4 fw-bold mb-3">Student Management System</h1>
+                    <p class="lead">Complete documentation for the Spring Boot & Thymeleaf application</p>
+                    <div class="badge bg-light text-primary fs-6 px-3 py-2">Version 1.0.0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Quick Navigation -->
+        <div class="row mb-5">
+            <div class="col-lg-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Quick Navigation</h5>
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <a href="#overview" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-info-circle me-2"></i>Overview
+                                </a>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <a href="#features" class="btn btn-outline-success w-100">
+                                    <i class="fas fa-star me-2"></i>Features
+                                </a>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <a href="#database-config" class="btn btn-outline-warning w-100">
+                                    <i class="fas fa-database me-2"></i>Database Config
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6 mb-2">
+                                <a href="#api" class="btn btn-outline-info w-100">
+                                    <i class="fas fa-code me-2"></i>API Reference
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <a href="#getting-started" class="btn btn-outline-success w-100">
+                                    <i class="fas fa-rocket me-2"></i>Getting Started
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview Section -->
+        <section id="overview" class="mb-5">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-4">
+                        <i class="fas fa-info-circle me-2"></i>Overview
+                    </h2>
+                    <p class="lead">The Student Management System is a comprehensive web application built with Spring Boot and Thymeleaf, designed to manage educational institutions' core entities: Students, Parents, and Courses.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <h5 class="text-secondary">Technology Stack</h5>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Spring Boot Framework</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Thymeleaf Template Engine</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Spring Data JPA</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Bootstrap CSS Framework</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-secondary">Key Benefits</h5>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-star text-warning me-2"></i>Centralized student data management</li>
+                                <li><i class="fas fa-star text-warning me-2"></i>Parent-student relationship tracking</li>
+                                <li><i class="fas fa-star text-warning me-2"></i>Course enrollment management</li>
+                                <li><i class="fas fa-star text-warning me-2"></i>Responsive web interface</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="mb-5">
+            <h2 class="text-primary mb-4">
+                <i class="fas fa-star me-2"></i>Features Overview
+            </h2>
+
+            <!-- Students Feature -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-user-graduate me-2"></i>Student Management
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Comprehensive student information management system with full CRUD operations.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-secondary">Functionality</h6>
+                            <ul>
+                                <li>Add new students with personal details</li>
+                                <li>View student profiles and information</li>
+                                <li>Update student records</li>
+                                <li>Delete student entries</li>
+                                <li>Search and filter students</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-secondary">Student Information</h6>
+                            <ul>
+                                <li>Full name and contact details</li>
+                                <li>Date of birth and age calculation</li>
+                                <li>Email and phone number</li>
+                                <li>Address information</li>
+                                <li>Enrollment date and status</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <h6 class="text-secondary">Available Endpoints</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Method</th>
+                                        <th>Endpoint</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge bg-primary">GET</span></td>
+                                        <td><code>/students</code></td>
+                                        <td>Display all students</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-success">GET</span></td>
+                                        <td><code>/students/new</code></td>
+                                        <td>Show add student form</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-warning">POST</span></td>
+                                        <td><code>/students</code></td>
+                                        <td>Create new student</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-info">GET</span></td>
+                                        <td><code>/students/{id}/edit</code></td>
+                                        <td>Show edit student form</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-danger">DELETE</span></td>
+                                        <td><code>/students/{id}</code></td>
+                                        <td>Delete student</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parents Feature -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-users me-2"></i>Parent Management
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Complete parent information system with student relationship management.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-secondary">Functionality</h6>
+                            <ul>
+                                <li>Register new parent profiles</li>
+                                <li>Link parents to student records</li>
+                                <li>Manage parent contact information</li>
+                                <li>Update parent details</li>
+                                <li>Track parent-student relationships</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-secondary">Parent Information</h6>
+                            <ul>
+                                <li>Full name and relationship type</li>
+                                <li>Contact phone and email</li>
+                                <li>Address and emergency contacts</li>
+                                <li>Occupation and workplace</li>
+                                <li>Associated student records</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <h6 class="text-secondary">Available Endpoints</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Method</th>
+                                        <th>Endpoint</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge bg-primary">GET</span></td>
+                                        <td><code>/parents</code></td>
+                                        <td>Display all parents</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-success">GET</span></td>
+                                        <td><code>/parents/new</code></td>
+                                        <td>Show add parent form</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-warning">POST</span></td>
+                                        <td><code>/parents</code></td>
+                                        <td>Create new parent</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-info">GET</span></td>
+                                        <td><code>/parents/{id}/edit</code></td>
+                                        <td>Show edit parent form</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-danger">DELETE</span></td>
+                                        <td><code>/parents/{id}</code></td>
+                                        <td>Delete parent</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Courses Feature -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0">
+                        <i class="fas fa-book me-2"></i>Course Management
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Comprehensive course management system with enrollment and scheduling capabilities.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-secondary">Functionality</h6>
+                            <ul>
+                                <li>Create and manage course catalogs</li>
+                                <li>Handle student enrollments</li>
+                                <li>Track course capacity and availability</li>
+                                <li>Manage course schedules</li>
+                                <li>Generate enrollment reports</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-secondary">Course Information</h6>
+                            <ul>
+                                <li>Course name and description</li>
+                                <li>Course code and credits</li>
+                                <li>Instructor and schedule</li>
+                                <li>Maximum enrollment capacity</li>
+                                <li>Prerequisites and requirements</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <h6 class="text-secondary">Available Endpoints</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Method</th>
+                                        <th>Endpoint</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge bg-primary">GET</span></td>
+                                        <td><code>/courses</code></td>
+                                        <td>Display all courses</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-success">GET</span></td>
+                                        <td><code>/courses/new</code></td>
+                                        <td>Show add course form</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-warning">POST</span></td>
+                                        <td><code>/courses</code></td>
+                                        <td>Create new course</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-info">GET</span></td>
+                                        <td><code>/courses/{id}/edit</code></td>
+                                        <td>Show edit course form</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-secondary">POST</span></td>
+                                        <td><code>/courses/{id}/enroll</code></td>
+                                        <td>Enroll student in course</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-danger">DELETE</span></td>
+                                        <td><code>/courses/{id}</code></td>
+                                        <td>Delete course</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API Reference Section -->
+        <section id="api" class="mb-5">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-4">
+                        <i class="fas fa-code me-2"></i>API Reference
+                    </h2>
+
+                    <!-- Request/Response Examples -->
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <h5 class="text-secondary">Common Request/Response Patterns</h5>
+                            
+                            <div class="accordion" id="apiAccordion">
+                                <!-- Student API Example -->
+                                <div class="accordion-item">
+                                    <h6 class="accordion-header" id="studentApiHead">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#studentApi">
+                                            Student API Example
+                                        </button>
+                                    </h6>
+                                    <div id="studentApi" class="accordion-collapse collapse" data-bs-parent="#apiAccordion">
+                                        <div class="accordion-body">
+                                            <h6>POST /students - Create Student</h6>
+                                            <pre class="bg-light p-3 rounded"><code>{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@email.com",
+
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Parent API Example -->
+                                <div class="accordion-item">
+                                    <h6 class="accordion-header" id="parentApiHead">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#parentApi">
+                                            Parent API Example
+                                        </button>
+                                    </h6>
+                                    <div id="parentApi" class="accordion-collapse collapse" data-bs-parent="#apiAccordion">
+                                        <div class="accordion-body">
+                                            <h6>POST /parents - Create Parent</h6>
+                                            <pre class="bg-light p-3 rounded"><code>{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "email": "jane.doe@email.com",
+  "phone": "+1-555-0124",
+  "relationship": "Mother",
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Course API Example -->
+                                <div class="accordion-item">
+                                    <h6 class="accordion-header" id="courseApiHead">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#courseApi">
+                                            Course API Example
+                                        </button>
+                                    </h6>
+                                    <div id="courseApi" class="accordion-collapse collapse" data-bs-parent="#apiAccordion">
+                                        <div class="accordion-body">
+                                            <h6>POST /courses - Create Course</h6>
+                                            <pre class="bg-light p-3 rounded"><code>{
+  "courseName": "Introduction to Computer Science",
+  "courseCode": "CS101",
+  "credits": 3,
+  "instructor": "Dr. Smith",
+  "description": "Basic concepts of computer science and programming"
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Error Handling -->
+                    <div class="mt-4">
+                        <h5 class="text-secondary">Error Handling</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>HTTP Status</th>
+                                        <th>Error Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge bg-warning">400</span></td>
+                                        <td>Bad Request</td>
+                                        <td>Invalid input data or validation errors</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-danger">404</span></td>
+                                        <td>Not Found</td>
+                                        <td>Requested resource does not exist</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-dark">500</span></td>
+                                        <td>Internal Server Error</td>
+                                        <td>Unexpected server error occurred</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Getting Started Section -->
+        <section id="getting-started" class="mb-5">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-4">
+                        <i class="fas fa-rocket me-2"></i>Getting Started
+                    </h2>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-secondary">Prerequisites</h5>
+                            <ul>
+                                <li>Java 11 or higher</li>
+                                <li>Maven 3.6+</li>
+                                <li>MySQL/PostgreSQL database</li>
+                                <li>IDE (IntelliJ IDEA, Eclipse, VS Code)</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-secondary">Quick Start</h5>
+                            <ol>
+                                <li>Clone the repository <a href="https://github.com/PHENOMVALENCE/studentmanagement">Github Repository</a></li>
+                                <li>Configure database connection</li>
+                                <li>Run <code>mvn spring-boot:run</code></li>
+                                <li>Access at <code>http://localhost:8080</code></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center py-4 border-top">
+            <div class="text-muted">
+                <p>&copy; 2025 Student Management System. Built with Spring Boot & Thymeleaf.</p>
+                <p>Last updated: <span th:text="${#dates.format(#dates.createNow(), 'MMMM dd, yyyy')}">January 2025</span></p>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+<style>
+    .card {
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    }
+    
+    .badge {
+        font-size: 0.75em;
+    }
+    
+    pre {
+        font-size: 0.875em;
+        line-height: 1.4;
+    }
+    
+    .accordion-button:focus {
+        box-shadow: none;
+    }
+    
+    .table th {
+        font-weight: 600;
+        font-size: 0.875em;
+    }
+    
+    .table td code {
+        font-size: 0.875em;
+        color: #e83e8c;
+        background-color: #f8f9fa;
+        padding: 2px 6px;
+        border-radius: 3px;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+</style>
+
+</body>
+</html>
