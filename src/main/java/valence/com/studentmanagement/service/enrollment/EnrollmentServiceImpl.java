@@ -21,6 +21,12 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     public List<Enrollment> getRecentEnrollments(int limit) {
         return enrollmentRepository.findTop5ByOrderByEnrollmentDateDesc();
     }
+
+	@Override
+	public void enrollStudent(Integer studentId, Integer courseId) {
+		
+		
+	}
 }
   
 

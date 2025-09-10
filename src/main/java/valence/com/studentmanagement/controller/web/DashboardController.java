@@ -47,7 +47,14 @@ public class DashboardController {
     model.addAttribute("title", "Documentation");
     
     return "docs";
-    
     }
+    
+    @GetMapping("/enrollment")
+    public String enrollment(Model model) {
+    	model.addAttribute("title", "Enrollment Dashboard");
+    	return "enroll";
+    }
+    
+    
     
 }

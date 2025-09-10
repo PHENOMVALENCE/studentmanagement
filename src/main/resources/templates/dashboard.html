@@ -31,7 +31,7 @@
                             <div>
                                 <h6 class="card-title text-muted mb-1">Total Students</h6>
                                <h3 class="mb-0 text-primary" th:text="${totalStudents}">0</h3>
-                                <small class="text-success"><i class="bi bi-arrow-up"></i> +12% from last month</small>
+                                
                             </div>
                             <div class="bg-primary bg-opacity-10 rounded-circle p-3">
                                 <i class="bi bi-people-fill text-primary fs-4"></i>
@@ -48,7 +48,7 @@
                             <div>
                                 <h6 class="card-title text-muted mb-1">Active Courses</h6>
                                 <h3 class="mb-0 text-success" th:text="${totalCourses}">0</h3>
-                                <small class="text-success"><i class="bi bi-arrow-up"></i> +3 new courses</small>
+                               
                             </div>
                             <div class="bg-success bg-opacity-10 rounded-circle p-3">
                                 <i class="bi bi-book-fill text-success fs-4"></i>
@@ -65,7 +65,7 @@
                             <div>
                                 <h6 class="card-title text-muted mb-1">Registered Parents</h6>
                               <h3 class="mb-0 text-warning" th:text="${totalParents}">0</h3>
-                                <small class="text-muted"><i class="bi bi-dash"></i> No change</small>
+                               
                             </div>
                             <div class="bg-warning bg-opacity-10 rounded-circle p-3">
                                 <i class="bi bi-person-hearts text-warning fs-4"></i>
@@ -82,7 +82,7 @@
                             <div>
                                 <h6 class="card-title text-muted mb-1">Enrollments</h6>
                                 <h3 class="mb-0 text-info" th:text="${totalEnrollments}">0</h3>
-                                <small class="text-success"><i class="bi bi-arrow-up"></i> +8% this week</small>
+                               
                             </div>
                             <div class="bg-info bg-opacity-10 rounded-circle p-3">
                                 <i class="bi bi-graph-up text-info fs-4"></i>
@@ -159,7 +159,7 @@
             <div>
                 <div class="fw-semibold" th:text="${enrollment.student.name}">Student Name</div>
                 <small class="text-muted">ID: <span th:text="${enrollment.student.id}">STU001</span></small>
-            </div>
+            </div>	
         </div>
     </td>
     <td th:text="${enrollment.course.name}">Course</td>
@@ -176,46 +176,11 @@
                 </div>
             </div>
             
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-header bg-white">
-                        <h5 class="mb-0">System Status</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <span class="small">Database</span>
-                                <span class="badge bg-success">Online</span>
-                            </div>
-                            <div class="progress" style="height: 4px;">
-                                <div class="progress-bar bg-success" style="width: 100%"></div>
-                            </div>
-                        </div>
+       
                         
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <span class="small">Server Load</span>
-                                <span class="small text-muted">45%</span>
-                            </div>
-                            <div class="progress" style="height: 4px;">
-                                <div class="progress-bar bg-warning" style="width: 45%"></div>
-                            </div>
-                        </div>
+                    	
                         
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <span class="small">Storage Used</span>
-                                <span class="small text-muted">67%</span>
-                            </div>
-                            <div class="progress" style="height: 4px;">
-                                <div class="progress-bar bg-info" style="width: 67%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="alert alert-light mt-3">
-                            <i class="bi bi-info-circle me-2"></i>
-                            <strong>System Update:</strong> Scheduled maintenance on Jan 20, 2025 at 2:00 AM.
-                        </div>
+
                     </div>
                 </div>
             </div>

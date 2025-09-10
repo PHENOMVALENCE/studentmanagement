@@ -120,8 +120,8 @@
                     <i class="bi bi-person-fill text-white"></i>
                 </div>
                 <div class="flex-grow-1">
-                    <div class="fw-semibold text-white">Administrator</div>
-                    <small class="text-light opacity-75">admin@sms.com</small>
+                    <div th:text="${#authentication.principal.username}" class="fw-semibold text-white">Administrator</div>
+                    <small th:text="${#authentication.principal.username}" class="text-light opacity-75">admin@sms.com</small>
                 </div>
             </div>
         </div>

@@ -14,6 +14,11 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                     <h1 class="display-4 fw-bold mb-3">Student Management System</h1>
                     <p class="lead">Complete documentation for the Spring Boot & Thymeleaf application</p>
                     <div class="badge bg-light text-primary fs-6 px-3 py-2">Version 1.0.0</div>
+                    <div class="mt-4">
+                        <a href="http://localhost:8080/swagger-ui/index.html" target="_blank" class="btn btn-light btn-lg">
+                            <i class="fas fa-external-link-alt me-2"></i>Test API with Swagger UI
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -27,31 +32,24 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                     <div class="card-body">
                         <h5 class="card-title mb-3">Quick Navigation</h5>
                         <div class="row">
-                            <div class="col-md-4 mb-2">
+                            <div class="col-md-3 mb-2">
                                 <a href="#overview" class="btn btn-outline-primary w-100">
                                     <i class="fas fa-info-circle me-2"></i>Overview
                                 </a>
                             </div>
-                            <div class="col-md-4 mb-2">
+                            <div class="col-md-3 mb-2">
                                 <a href="#features" class="btn btn-outline-success w-100">
                                     <i class="fas fa-star me-2"></i>Features
                                 </a>
                             </div>
-                            <div class="col-md-4 mb-2">
-                                <a href="#database-config" class="btn btn-outline-warning w-100">
-                                    <i class="fas fa-database me-2"></i>Database Config
-                                </a>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-6 mb-2">
+                            <div class="col-md-3 mb-2">
                                 <a href="#api" class="btn btn-outline-info w-100">
                                     <i class="fas fa-code me-2"></i>API Reference
                                 </a>
                             </div>
-                            <div class="col-md-6 mb-2">
-                                <a href="#getting-started" class="btn btn-outline-success w-100">
-                                    <i class="fas fa-rocket me-2"></i>Getting Started
+                            <div class="col-md-3 mb-2">
+                                <a href="#swagger" class="btn btn-outline-warning w-100">
+                                    <i class="fas fa-rocket me-2"></i>API Testing
                                 </a>
                             </div>
                         </div>
@@ -69,6 +67,11 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                     </h2>
                     <p class="lead">The Student Management System is a comprehensive web application built with Spring Boot and Thymeleaf, designed to manage educational institutions' core entities: Students, Parents, and Courses.</p>
                     
+                    <div class="alert alert-info mt-4">
+                        <h5><i class="fas fa-lightbulb me-2"></i>Interactive API Testing</h5>
+                        <p>This application provides a complete REST API for all features. You can explore and test all endpoints using our interactive <a href="http://localhost:8080/swagger-ui/index.html" target="_blank" class="alert-link">Swagger UI documentation</a>.</p>
+                    </div>
+                    
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <h5 class="text-secondary">Technology Stack</h5>
@@ -77,6 +80,7 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                 <li><i class="fas fa-check text-success me-2"></i>Thymeleaf Template Engine</li>
                                 <li><i class="fas fa-check text-success me-2"></i>Spring Data JPA</li>
                                 <li><i class="fas fa-check text-success me-2"></i>Bootstrap CSS Framework</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Springdoc OpenAPI (Swagger)</li>
                             </ul>
                         </div>
                         <div class="col-md-6">
@@ -86,6 +90,7 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                 <li><i class="fas fa-star text-warning me-2"></i>Parent-student relationship tracking</li>
                                 <li><i class="fas fa-star text-warning me-2"></i>Course enrollment management</li>
                                 <li><i class="fas fa-star text-warning me-2"></i>Responsive web interface</li>
+                                <li><i class="fas fa-star text-warning me-2"></i>Comprehensive REST API with documentation</li>
                             </ul>
                         </div>
                     </div>
@@ -107,7 +112,12 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                     </h4>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Comprehensive student information management system with full CRUD operations.</p>
+                    <p class="card-text">Comprehensive student information management system with full CRUD operations through both web interface and REST API.</p>
+                    
+                    <div class="alert alert-light d-flex align-items-center" role="alert">
+                        <i class="fas fa-info-circle text-info me-2"></i>
+                        <div>All student operations are available via API endpoints. Test them in <a href="http://localhost:8080/swagger-ui/index.html#/student-controller" target="_blank" class="alert-link">Swagger UI</a>.</div>
+                    </div>
                     
                     <div class="row">
                         <div class="col-md-6">
@@ -146,8 +156,13 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                 <tbody>
                                     <tr>
                                         <td><span class="badge bg-primary">GET</span></td>
+                                        <td><code>/api/students</code></td>
+                                        <td>Get all students (JSON)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-primary">GET</span></td>
                                         <td><code>/students</code></td>
-                                        <td>Display all students</td>
+                                        <td>Display all students (UI)</td>
                                     </tr>
                                     <tr>
                                         <td><span class="badge bg-success">GET</span></td>
@@ -156,8 +171,8 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                     </tr>
                                     <tr>
                                         <td><span class="badge bg-warning">POST</span></td>
-                                        <td><code>/students</code></td>
-                                        <td>Create new student</td>
+                                        <td><code>/api/students</code></td>
+                                        <td>Create new student (API)</td>
                                     </tr>
                                     <tr>
                                         <td><span class="badge bg-info">GET</span></td>
@@ -165,9 +180,14 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                         <td>Show edit student form</td>
                                     </tr>
                                     <tr>
+                                        <td><span class="badge bg-primary">GET</span></td>
+                                        <td><code>/api/students/{id}</code></td>
+                                        <td>Get student by ID (API)</td>
+                                    </tr>
+                                    <tr>
                                         <td><span class="badge bg-danger">DELETE</span></td>
-                                        <td><code>/students/{id}</code></td>
-                                        <td>Delete student</td>
+                                        <td><code>/api/students/{id}</code></td>
+                                        <td>Delete student (API)</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -184,7 +204,12 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                     </h4>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Complete parent information system with student relationship management.</p>
+                    <p class="card-text">Complete parent information system with student relationship management through both web interface and REST API.</p>
+                    
+                    <div class="alert alert-light d-flex align-items-center" role="alert">
+                        <i class="fas fa-info-circle text-info me-2"></i>
+                        <div>All parent operations are available via API endpoints. Test them in <a href="http://localhost:8080/swagger-ui/index.html#/parent-controller" target="_blank" class="alert-link">Swagger UI</a>.</div>
+                    </div>
                     
                     <div class="row">
                         <div class="col-md-6">
@@ -223,8 +248,13 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                 <tbody>
                                     <tr>
                                         <td><span class="badge bg-primary">GET</span></td>
+                                        <td><code>/api/parents</code></td>
+                                        <td>Get all parents (JSON)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-primary">GET</span></td>
                                         <td><code>/parents</code></td>
-                                        <td>Display all parents</td>
+                                        <td>Display all parents (UI)</td>
                                     </tr>
                                     <tr>
                                         <td><span class="badge bg-success">GET</span></td>
@@ -233,8 +263,8 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                     </tr>
                                     <tr>
                                         <td><span class="badge bg-warning">POST</span></td>
-                                        <td><code>/parents</code></td>
-                                        <td>Create new parent</td>
+                                        <td><code>/api/parents</code></td>
+                                        <td>Create new parent (API)</td>
                                     </tr>
                                     <tr>
                                         <td><span class="badge bg-info">GET</span></td>
@@ -242,9 +272,14 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                         <td>Show edit parent form</td>
                                     </tr>
                                     <tr>
+                                        <td><span class="badge bg-primary">GET</span></td>
+                                        <td><code>/api/parents/{id}</code></td>
+                                        <td>Get parent by ID (API)</td>
+                                    </tr>
+                                    <tr>
                                         <td><span class="badge bg-danger">DELETE</span></td>
-                                        <td><code>/parents/{id}</code></td>
-                                        <td>Delete parent</td>
+                                        <td><code>/api/parents/{id}</code></td>
+                                        <td>Delete parent (API)</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -261,7 +296,12 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                     </h4>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Comprehensive course management system with enrollment and scheduling capabilities.</p>
+                    <p class="card-text">Comprehensive course management system with enrollment and scheduling capabilities through both web interface and REST API.</p>
+                    
+                    <div class="alert alert-light d-flex align-items-center" role="alert">
+                        <i class="fas fa-info-circle text-info me-2"></i>
+                        <div>All course operations are available via API endpoints. Test them in <a href="http://localhost:8080/swagger-ui/index.html#/course-controller" target="_blank" class="alert-link">Swagger UI</a>.</div>
+                    </div>
                     
                     <div class="row">
                         <div class="col-md-6">
@@ -300,8 +340,13 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                 <tbody>
                                     <tr>
                                         <td><span class="badge bg-primary">GET</span></td>
+                                        <td><code>/api/courses</code></td>
+                                        <td>Get all courses (JSON)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-primary">GET</span></td>
                                         <td><code>/courses</code></td>
-                                        <td>Display all courses</td>
+                                        <td>Display all courses (UI)</td>
                                     </tr>
                                     <tr>
                                         <td><span class="badge bg-success">GET</span></td>
@@ -310,8 +355,8 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                     </tr>
                                     <tr>
                                         <td><span class="badge bg-warning">POST</span></td>
-                                        <td><code>/courses</code></td>
-                                        <td>Create new course</td>
+                                        <td><code>/api/courses</code></td>
+                                        <td>Create new course (API)</td>
                                     </tr>
                                     <tr>
                                         <td><span class="badge bg-info">GET</span></td>
@@ -319,14 +364,19 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                         <td>Show edit course form</td>
                                     </tr>
                                     <tr>
+                                        <td><span class="badge bg-primary">GET</span></td>
+                                        <td><code>/api/courses/{id}</code></td>
+                                        <td>Get course by ID (API)</td>
+                                    </tr>
+                                    <tr>
                                         <td><span class="badge bg-secondary">POST</span></td>
-                                        <td><code>/courses/{id}/enroll</code></td>
-                                        <td>Enroll student in course</td>
+                                        <td><code>/api/courses/{id}/enroll</code></td>
+                                        <td>Enroll student in course (API)</td>
                                     </tr>
                                     <tr>
                                         <td><span class="badge bg-danger">DELETE</span></td>
-                                        <td><code>/courses/{id}</code></td>
-                                        <td>Delete course</td>
+                                        <td><code>/api/courses/{id}</code></td>
+                                        <td>Delete course (API)</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -344,6 +394,11 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                         <i class="fas fa-code me-2"></i>API Reference
                     </h2>
 
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-external-link-alt me-2"></i>Interactive API Documentation</h5>
+                        <p>For complete API documentation with interactive testing capabilities, visit our <a href="http://localhost:8080/swagger-ui/index.html" target="_blank" class="alert-link">Swagger UI</a>. You can try out all API endpoints directly from your browser.</p>
+                    </div>
+
                     <!-- Request/Response Examples -->
                     <div class="row">
                         <div class="col-md-12 mb-4">
@@ -359,12 +414,14 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                     </h6>
                                     <div id="studentApi" class="accordion-collapse collapse" data-bs-parent="#apiAccordion">
                                         <div class="accordion-body">
-                                            <h6>POST /students - Create Student</h6>
+                                            <h6>POST /api/students - Create Student</h6>
                                             <pre class="bg-light p-3 rounded"><code>{
   "firstName": "John",
   "lastName": "Doe",
   "email": "john.doe@email.com",
-
+  "dateOfBirth": "2005-03-15",
+  "phone": "+1-555-0123",
+  "address": "123 Main St, Anytown, USA"
 }</code></pre>
                                         </div>
                                     </div>
@@ -379,13 +436,14 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                     </h6>
                                     <div id="parentApi" class="accordion-collapse collapse" data-bs-parent="#apiAccordion">
                                         <div class="accordion-body">
-                                            <h6>POST /parents - Create Parent</h6>
+                                            <h6>POST /api/parents - Create Parent</h6>
                                             <pre class="bg-light p-3 rounded"><code>{
   "firstName": "Jane",
   "lastName": "Doe",
   "email": "jane.doe@email.com",
   "phone": "+1-555-0124",
   "relationship": "Mother",
+  "studentIds": [1, 2]
 }</code></pre>
                                         </div>
                                     </div>
@@ -400,13 +458,14 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
                                     </h6>
                                     <div id="courseApi" class="accordion-collapse collapse" data-bs-parent="#apiAccordion">
                                         <div class="accordion-body">
-                                            <h6>POST /courses - Create Course</h6>
+                                            <h6>POST /api/courses - Create Course</h6>
                                             <pre class="bg-light p-3 rounded"><code>{
   "courseName": "Introduction to Computer Science",
   "courseCode": "CS101",
   "credits": 3,
   "instructor": "Dr. Smith",
-  "description": "Basic concepts of computer science and programming"
+  "description": "Basic concepts of computer science and programming",
+  "maxCapacity": 30
 }</code></pre>
                                         </div>
                                     </div>
@@ -451,32 +510,47 @@ th:replace="~{layout/main :: layout('Docs', ~{::content}, 'Docs')}"
             </div>
         </section>
 
-        <!-- Getting Started Section -->
-        <section id="getting-started" class="mb-5">
+        <!-- Swagger UI Section -->
+        <section id="swagger" class="mb-5">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title text-primary mb-4">
-                        <i class="fas fa-rocket me-2"></i>Getting Started
+                        <i class="fas fa-rocket me-2"></i>API Testing with Swagger UI
                     </h2>
                     
                     <div class="row">
                         <div class="col-md-6">
-                            <h5 class="text-secondary">Prerequisites</h5>
+                            <h5 class="text-secondary">Interactive API Documentation</h5>
+                            <p>Our application includes a comprehensive Swagger UI interface that allows you to:</p>
                             <ul>
-                                <li>Java 11 or higher</li>
-                                <li>Maven 3.6+</li>
-                                <li>MySQL/PostgreSQL database</li>
-                                <li>IDE (IntelliJ IDEA, Eclipse, VS Code)</li>
+                                <li>Explore all available API endpoints</li>
+                                <li>View request and response schemas</li>
+                                <li>Execute API calls directly from your browser</li>
+                                <li>Test all CRUD operations for students, parents, and courses</li>
+                                <li>View authentication requirements (if applicable)</li>
                             </ul>
+                            
+                            <div class="text-center mt-4">
+                                <a href="http://localhost:8080/swagger-ui/index.html" target="_blank" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-external-link-alt me-2"></i>Open Swagger UI
+                                </a>
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <h5 class="text-secondary">Quick Start</h5>
+                            <h5 class="text-secondary">Getting Started with API Testing</h5>
                             <ol>
-                                <li>Clone the repository <a href="https://github.com/PHENOMVALENCE/studentmanagement">Github Repository</a></li>
-                                <li>Configure database connection</li>
-                                <li>Run <code>mvn spring-boot:run</code></li>
-                                <li>Access at <code>http://localhost:8080</code></li>
+                                <li>Ensure the application is running on <code>http://localhost:8080</code></li>
+                                <li>Click the button to open Swagger UI in a new tab</li>
+                                <li>Expand the controller sections to see available endpoints</li>
+                                <li>Click "Try it out" on any endpoint to test it</li>
+                                <li>Fill in required parameters and execute the request</li>
+                                <li>View the server response including status codes and data</li>
                             </ol>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Note:</strong> Changes made through the API will affect your database. Use with caution in production environments.
+                            </div>
                         </div>
                     </div>
                 </div>

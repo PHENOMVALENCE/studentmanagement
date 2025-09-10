@@ -74,7 +74,7 @@ button {
 
 button:hover {
     transform: translateY(-2px);
-    box-shadow: 0px 5px 15px rgba(0, 242, 254, 0.4);
+    box-shadow: 0px 5px 15px rgba(0, 42, 254, 0.4);
 }
 
 /* Messages */

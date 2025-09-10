@@ -7,4 +7,6 @@ import valence.com.studentmanagement.model.Enrollment;
 public interface EnrollmentService {
     int countTotalEnrollments();
     List<Enrollment> getRecentEnrollments(int limit);
+	void enrollStudent(Integer studentId, Integer courseId);
+	
 }
