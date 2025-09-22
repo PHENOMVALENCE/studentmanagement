@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import valence.com.studentmanagement.model.Parent;
 import valence.com.studentmanagement.service.parent.ParentService;
 
 @RestController
 @RequestMapping("/api")
+@Tag(name = "Parent API", description = "REST APIs for parent management")
 public class ParentController {
 
     @Autowired

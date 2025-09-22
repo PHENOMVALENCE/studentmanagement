@@ -23,6 +23,15 @@ public class Student {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+	private String name;
+    private String email;
+
+    @Column(name = "enrollment_date")
+    @Temporal(TemporalType.DATE) 
+    private Date enrollmentDate;
+    
+	
+	
     public Integer getId() {
 		return id;
 	}
@@ -55,13 +64,7 @@ public class Student {
 		this.enrollmentDate = enrollmentDate;
 	}
 
-	private String name;
-    private String email;
-
-      @Column(name = "enrollment_date")
-    @Temporal(TemporalType.DATE) 
-    private Date enrollmentDate;
-    
+	
 
     
 }

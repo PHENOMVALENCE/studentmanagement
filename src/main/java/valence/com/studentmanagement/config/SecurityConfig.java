@@ -23,7 +23,8 @@ public class SecurityConfig {
                         "/register",
                         "/login",
                         "/css/**",
-                        "/js/**"
+                        "/js/**",
+                        "/api/**"  // Add API endpoints to permit all
                 ).permitAll()
                 .requestMatchers("/profile/**").authenticated()
                 .anyRequest().authenticated()
@@ -37,7 +38,11 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
             )
-            .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+            .csrf(csrf -> csrf
+                .ignoringRequestMatchers(
+                    "/h2-console/**",
+                    "/api/**"  // Disable CSRF for API endpoints
+                ))
             .headers(headers -> headers.frameOptions(frame -> frame.disable())); // for H2 console
 
         return http.build();

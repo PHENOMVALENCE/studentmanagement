@@ -12,6 +12,12 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+	private String code;
+    private String name;
+    private String description; 
+    private String instructor;
+    private String credits;
+    
     public Integer getId() {
 		return id;
 	}
@@ -48,9 +54,4 @@ public class Course {
 	public void setCredits(String credits) {
 		this.credits = credits;
 	}
-	private String code;
-    private String name;
-    private String description; 
-    private String instructor;
-    private String credits;
 }

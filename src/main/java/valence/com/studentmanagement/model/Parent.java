@@ -16,10 +16,10 @@ public class Parent {
     private Integer id;
     private String name;
     private String email;
-    
     private String address;
     private String relationship;
     private Long phone;
+    
 	public Integer getId() {
 		return id;
 	}
